@@ -3,10 +3,6 @@ package model;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *
- * @author Nakagawa
- */
 @Table(name = "tbl_input")
 public class InputModel {
     private int ID;
