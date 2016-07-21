@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>WindowsUpdateチェック</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-size: 14pt;
+                font-family: メイリオ, Osaka;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+        </style>
+    <script src="./js/script2_1.js"></script>        
+    </head>
+    
+    <body>
+        <table>
+            <td><h1>WindowsUpdateチェック</h1></td>
+            <td align="right">
+                <!--<button type="button">マスタ登録</button>-->
+                <input type="button" value="マスタ登録"
+                       onclick=InputModel.next()
+                       style="width: 100px; height: 30px; position: absolute; left: 590px; top: 15px"/>
+            </td>
+        </table>
+        <p>WindowsUpdateの毎月の進捗を登録してください。</p>        
+        <table>
+            <tr>
+                <td align="right">入力者：</td>
+                <td>
+                    <select name="入力者">
+                        <option value="サンプル1">選択肢のサンプル1</option>
+                        <option value="サンプル2">選択肢のサンプル2</option>
+                        <option value="サンプル3" selected>選択肢のサンプル3</option>
+                    </select>
+                </td>
+            </tr>
+            
+            <tr>
+                <td align="right">PC名：</td>
+                <td>
+                    <select name="PC名：">
+                        <option value="サンプル1">選択肢のサンプル1</option>
+                        <option value="サンプル2">選択肢のサンプル2</option>
+                        <option value="サンプル3" selected>選択肢のサンプル3</option>
+                    </select>
+                </td>
+            </tr>
+            
+            <tr>
+                <td align="right">ステータス：</td>
+                <td>
+                    <select name="ステータス：">
+                        <option value="サンプル1">選択肢のサンプル1</option>
+                        <option value="サンプル2">選択肢のサンプル2</option>
+                        <option value="サンプル3" selected>選択肢のサンプル3</option>
+                    </select>
+                </td>
+            </tr>
+            
+            <tr>
+                <td align="right">備考：</td>
+                <td>
+                    <textarea cols="80" rows="5" name="example3"></textarea>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                <input type="button" style="width: 100px; height: 30px; position: absolute; left: 590px;" value="更新"/>
+                </td>                
+            </tr>
+        </table>
+        
+    </body>
+</html>
