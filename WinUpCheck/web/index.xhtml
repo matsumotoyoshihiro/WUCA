@@ -1,8 +1,9 @@
-<html>
-    <head>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
         <title>WindowsUpdateチェック</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             body {
                 font-size: 14pt;
@@ -11,17 +12,14 @@
             h1 {
                 font-size: 1.5em;
             }
-        </style>
-    <script src="./js/script2_1.js"></script>        
-    </head>
-    
-    <body>
+        </style>        
+    </h:head>
+    <h:body>
         <table>
             <td><h1>WindowsUpdateチェック</h1></td>
             <td align="right">
                 <!--<button type="button">マスタ登録</button>-->
                 <input type="button" value="マスタ登録"
-                       onclick=InputModel.next()
                        style="width: 100px; height: 30px; position: absolute; left: 590px; top: 15px"/>
             </td>
         </table>
@@ -33,7 +31,7 @@
                     <select name="入力者">
                         <option value="サンプル1">選択肢のサンプル1</option>
                         <option value="サンプル2">選択肢のサンプル2</option>
-                        <option value="サンプル3" selected>選択肢のサンプル3</option>
+                        <option value="サンプル3">選択肢のサンプル3</option>
                     </select>
                 </td>
             </tr>
@@ -44,7 +42,7 @@
                     <select name="PC名：">
                         <option value="サンプル1">選択肢のサンプル1</option>
                         <option value="サンプル2">選択肢のサンプル2</option>
-                        <option value="サンプル3" selected>選択肢のサンプル3</option>
+                        <option value="サンプル3">選択肢のサンプル3</option>
                     </select>
                 </td>
             </tr>
@@ -55,7 +53,7 @@
                     <select name="ステータス：">
                         <option value="サンプル1">選択肢のサンプル1</option>
                         <option value="サンプル2">選択肢のサンプル2</option>
-                        <option value="サンプル3" selected>選択肢のサンプル3</option>
+                        <option value="サンプル3">選択肢のサンプル3</option>
                     </select>
                 </td>
             </tr>
@@ -73,6 +71,6 @@
                 </td>                
             </tr>
         </table>
-        
-    </body>
+    </h:body>
 </html>
+
