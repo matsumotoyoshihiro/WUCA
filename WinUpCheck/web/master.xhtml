@@ -13,11 +13,46 @@
                 font-size: 1.5em;
             }
         </style>
+
     </h:head>
     <h:body>
-        <div>TODO write content</div>
-        <form>
-            <h:link outcome="input">［戻る］</h:link>
-        </form>
+        <div><h1>マスタ登録</h1></div>
+        <h:form>
+            <!--<input button value="送信" action="#{syosekiBeans.next()}">-->
+            <h:commandButton action="#{MastarModel.backDisp}" value="入力画面"
+                             style="width: 100px; height: 30px; position: absolute; left: 590px; top: 25px"/>
+            
+            
+            <table>    
+                <tr>
+                    <td><h:outputLabel value="社員名　姓:"/></td>
+                    <td><input type="text" name="姓" value="" /></td>
+                    <td><h:outputLabel value="名:" /></td>
+                    <td><input type="text" name="名" value="" /></td>
+                </tr>
+                
+<!--                <h:outputLabel value="名:" />
+                <input type="text" name="名" value="" />-->
+            
+            
+                <tr>
+                    <td style="float: right"><h:outputLabel value="PC名"/></td>
+                    <td><input type="text" name="PC名" value="" /></td>
+                </tr>
+            </table>
+            
+            <br></br>
+            
+            <table border="1">テスト表
+                <tr><th>社員名</th> <th>PC名</th></tr>
+                <tr><td>Aさん</td>  <td>PC1</td></tr>
+                <tr><td>Bさん</td>  <td>PC2</td></tr>
+                <tr><td>Aさん</td>  <td>PC3</td></tr>
+            </table>
+            
+        </h:form> 
+        
+        
+        
     </h:body>
 </html>
