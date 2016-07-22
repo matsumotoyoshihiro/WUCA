@@ -15,11 +15,12 @@
         </style>        
     </h:head>
     <h:body>
+        <h:form>
         <table>
             <td><h1>WindowsUpdateチェック</h1></td>
             <td align="right">
-                <!--<button type="button">マスタ登録</button>-->
-                <input type="button" value="マスタ登録"
+                <h:commandButton value="マスタ登録"
+                       action="#{inputModel.next()}"
                        style="width: 100px; height: 30px; position: absolute; left: 590px; top: 15px"/>
             </td>
         </table>
@@ -71,6 +72,7 @@
                 </td>                
             </tr>
         </table>
+        </h:form>
     </h:body>
 </html>
 

@@ -1,8 +1,12 @@
 package model;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Named
+@RequestScoped
 @Table(name = "tbl_input")
 public class InputModel {
     private int ID;
@@ -62,6 +66,6 @@ public class InputModel {
     }
     
     public String next() {
-        return "master.html";
+        return "master.xhtml";
     }
 }
