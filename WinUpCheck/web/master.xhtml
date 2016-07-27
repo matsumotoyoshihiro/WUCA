@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>マスタ登録</title>
         <style>
@@ -18,38 +20,69 @@
     <h:body>
         <div><h1>マスタ登録</h1></div>
         <h:form>
-            <!--<input button value="送信" action="#{syosekiBeans.next()}">-->
-            <h:commandButton action="#{MastarModel.backDisp}" value="入力画面"
-                             style="width: 100px; height: 30px; position: absolute; left: 590px; top: 25px"/>
+
+           <h:commandButton value="入力画面"
+                            action="#{masterControl.chDisp()}"
+                       style="width: 100px; height: 30px; position: absolute; left: 472px; top: 15px"/>
             
             
             <table>    
                 <tr>
                     <td><h:outputLabel value="社員名　姓:"/></td>
-                    <td><input type="text" name="姓" value="" /></td>
+                    <td><h:inputText value="#{masterControl.fristName}" /></td>
                     <td><h:outputLabel value="名:" /></td>
-                    <td><input type="text" name="名" value="" /></td>
+                    <td><h:inputText value="#{masterControl.lastName}" /></td>
+                    <td><h:selectBooleanCheckbox value="#{masterControl.checkBox}"/>入力者一覧に追加</td>
+                    
                 </tr>
-                
-<!--                <h:outputLabel value="名:" />
-                <input type="text" name="名" value="" />-->
-            
             
                 <tr>
                     <td style="float: right"><h:outputLabel value="PC名"/></td>
-                    <td><input type="text" name="PC名" value="" /></td>
+                    <td><h:inputText value="#{masterControl.pcName}" /></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style=""><h:commandButton action="#{masterControl.next()}" value="登　録"
+                         style="width: 100px; height: 30px; position: absolute;"/></td>
+                    
                 </tr>
             </table>
             
             <br></br>
+        
+
             
-            <table border="1">テスト表
-                <tr><th>社員名</th> <th>PC名</th></tr>
-                <tr><td>Aさん</td>  <td>PC1</td></tr>
-                <tr><td>Bさん</td>  <td>PC2</td></tr>
-                <tr><td>Aさん</td>  <td>PC3</td></tr>
-            </table>
+
             
+            <h:dataTable value="#{masterControl.all}"  var="row" border="1">
+                
+                <h:column >
+                    <f:facet name ="header">
+                        <h:outputText value="　社員名　"/>
+                    </f:facet>
+                    
+                    <h:outputText value ="#{row.name}" />
+                    
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="　PC名　"/>
+                    </f:facet>
+                    
+                    <h:outputText value ="#{row.pcName}" />     
+                    
+                </h:column>
+    
+            </h:dataTable>
+
         </h:form> 
         
         

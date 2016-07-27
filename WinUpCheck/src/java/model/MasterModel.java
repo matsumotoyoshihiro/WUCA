@@ -1,19 +1,37 @@
 
 package model;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 
+
+@Entity
 @Table(name = "tbl_master")
-public class MastarModel {
-    
+public class MasterModel implements Serializable{
+
     private int ID;
     private String Name;
     private String PcName;
     private int InputCheck;
+    
+    public MasterModel() {
+        
+    }
 
+    public MasterModel(String name, String pcName, int inputCheck) {
+        this.Name = name;
+        this.PcName = pcName;
+        this.InputCheck = inputCheck;
+        
+    }
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getID() {
         return ID;
     }
@@ -46,9 +64,7 @@ public class MastarModel {
         this.InputCheck = InputCheck;
     }
     
-    public String backDisp() {
-        return "index";
-    }
+
     
     
     

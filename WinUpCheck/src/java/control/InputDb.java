@@ -5,10 +5,12 @@
  */
 package control;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.InputModel;
+import model.MasterModel;
 
 @Stateless
 public class InputDb {
@@ -17,5 +19,14 @@ public class InputDb {
 
     public void create(InputModel input) {
         em.persist(input);
+    }
+    
+    public void createMaster(MasterModel masterModel) {
+        em.persist(masterModel);
+    }
+    
+    
+    public List<MasterModel> getAll() {
+        return em.createQuery("SELECT c FROM MasterModel c").getResultList();
     }
 }
