@@ -1,22 +1,49 @@
 package model;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import java.io.Serializable;
+import java.util.Calendar;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-@Named
-@RequestScoped
+@Entity
 @Table(name = "tbl_input")
-public class InputModel {
-    private int ID;
-    private String Name;
-    private String State;
-    private String RecodeTime;
-    private String PcName;
-    private String Note;
-
+public class InputModel implements Serializable {
+    
     @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
+    private int ID;
+    
+    @NotNull
+    private String Name;
+    
+    @NotNull
+    private String PcName;
+
+    private String Status;
+    
+    private String Note;
+    
+//    @NotNull
+    private String RecodeTime;               
+    
+    public InputModel() {
+    }
+
+    public InputModel(String Name, String PcName, String Status, String Note) {
+        Calendar cal = Calendar.getInstance();
+        
+//        MultivaluedMap<String, String> qmap = new MultivaluedMapImpl();
+//        qmap.add("date", toRestFormat(cal.getTime()));
+        
+        this.Name = Name;
+        this.PcName = PcName;
+        this.Status = Status;
+        this.Note = Note;
+    }    
+    
     public int getID() {
         return ID;
     }
@@ -32,29 +59,21 @@ public class InputModel {
     public void setName(String Name) {
         this.Name = Name;
     }
-
-    public String getState() {
-        return State;
-    }
-
-    public void setState(String State) {
-        this.State = State;
-    }
-
-    public String getRecodeTime() {
-        return RecodeTime;
-    }
-
-    public void setRecodeTime(String RecodeTime) {
-        this.RecodeTime = RecodeTime;
-    }
-
+    
     public String getPcName() {
         return PcName;
     }
 
     public void setPcName(String PcName) {
         this.PcName = PcName;
+    }    
+
+    public String getState() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
 
     public String getNote() {
@@ -63,9 +82,13 @@ public class InputModel {
 
     public void setNote(String Note) {
         this.Note = Note;
+    }    
+
+    public String getRecodeTime() {
+        return RecodeTime;
     }
-    
-    public String next() {
-        return "master.xhtml";
-    }
+
+    public void setRecodeTime(String RecodeTime) {
+        this.RecodeTime = RecodeTime;
+    }    
 }
