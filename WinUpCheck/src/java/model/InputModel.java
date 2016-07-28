@@ -2,14 +2,9 @@ package model;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -17,7 +12,8 @@ import javax.validation.constraints.NotNull;
 public class InputModel implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private int ID;
     
     @NotNull
@@ -30,19 +26,22 @@ public class InputModel implements Serializable {
     
     private String Note;
     
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date RecodeTime;               
+//    @NotNull
+    private String RecodeTime;               
     
     public InputModel() {
     }
 
     public InputModel(String Name, String PcName, String Status, String Note) {
+        Calendar cal = Calendar.getInstance();
+        
+//        MultivaluedMap<String, String> qmap = new MultivaluedMapImpl();
+//        qmap.add("date", toRestFormat(cal.getTime()));
         
         this.Name = Name;
         this.PcName = PcName;
         this.Status = Status;
         this.Note = Note;
-        this.RecodeTime = new Date();
     }    
     
     public int getID() {
@@ -85,11 +84,11 @@ public class InputModel implements Serializable {
         this.Note = Note;
     }    
 
-    public Date getRecodeTime() {
+    public String getRecodeTime() {
         return RecodeTime;
     }
 
-    public void setRecodeTime(Date RecodeTime) {
+    public void setRecodeTime(String RecodeTime) {
         this.RecodeTime = RecodeTime;
     }    
 }
