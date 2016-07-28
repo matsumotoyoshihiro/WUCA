@@ -16,6 +16,9 @@ import model.MasterModel;
 public class InputDb {
     @PersistenceContext
     private EntityManager em;
+    
+    private static final String INPUTCHECK = "inputCkeck";
+    private static final String QUERY_NAME = "SELECT name FROM MasterModel c where c.inputcheck=:inputCkeck";
 
     public void create(InputModel input) {
         em.persist(input);
@@ -28,5 +31,18 @@ public class InputDb {
     
     public List<MasterModel> getAll() {
         return em.createQuery("SELECT c FROM MasterModel c").getResultList();
+    }
+    
+    public List<MasterModel> getAllName() {
+        return em.createQuery(QUERY_NAME)
+                .setParameter(INPUTCHECK, 1)
+                .getResultList();
+    }
+    
+    public List<MasterModel> findAll() {
+        javax.persistence.criteria.CriteriaQuery cq
+                = em.getCriteriaBuilder().createQuery();
+        cq.select(cq.from(MasterModel.class));
+        return em.createQuery(cq).getResultList();
     }
 }
