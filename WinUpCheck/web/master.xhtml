@@ -18,17 +18,31 @@
 
     </h:head>
     <h:body>
-        <div><h1>マスタ登録</h1></div>
+        <!--<div><h1>マスタ登録</h1></div>-->
         <h:form>
-
-           <h:commandButton value="入力画面"
-                            action="#{masterControl.chDisp()}"
-                       style="width: 100px; height: 30px; position: absolute; left: 472px; top: 15px"/>
+            <table style="height: 600px; width: 1500px">
+                <tr><td>
             
-            
-            <table>    
+            <table>
                 <tr>
-                    <td><h:outputLabel value="社員名　姓:"/></td>
+                    <td><h1>マスタ登録</h1></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="float: top"><h:commandButton value="入力画面" action="#{masterControl.chDisp()}" style="width: 100px; height: 30px; position: absolute"/></td>
+                </tr>
+                
+                
+                <tr>
+                    <td><h3>新規登録</h3></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <tr>
+                    <td style="float: right"><h:outputLabel value="社員名　姓:"/></td>
                     <td><h:inputText value="#{masterControl.fristName}" /></td>
                     <td><h:outputLabel value="名:" /></td>
                     <td><h:inputText value="#{masterControl.lastName}" /></td>
@@ -48,7 +62,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td>　　　　　　　</td>
                     <td style=""><h:commandButton action="#{masterControl.next()}" value="登　録"
                          style="width: 100px; height: 30px; position: absolute;"/></td>
                     
@@ -56,12 +70,77 @@
             </table>
             
             <br></br>
-        
-
+            <br></br>
             
-
+            <table>
+                <tr>
+                    <td><h3>データ更新</h3></td>
+                    <td></td>
+                </tr>
+                
+                <tr>
+                    <td style="float: right"><h:outputLabel value="データ更新したいID："/> </td>
+                    <td><h:inputText value="#{masterControl.updateID}"/> </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <tr>
+                    <td style="float: right"> <h:outputLabel value="新しい社員名："/> </td>
+                    <td> <h:inputText value="#{masterControl.newName}" /> </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <tr>
+                    <td style="float: right"> <h:outputLabel value="新しいPC名：" /> </td>
+                    <td> <h:inputText value="#{masterControl.newPcName}" /> </td>
+                    <td style="width: 163px"></td>
+                    <td><h:commandButton action="#{masterControl.update()}" value="更新"  style="width: 100px; height: 30px"/></td>
+                </tr>
             
+            </table>
+   
+                <br></br>
+                <br></br>
+                
+                <table>
+                <tr>
+                    <td><h3>データ削除</h3></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <tr style="height: 50px">
+                    <td><h:outputLabel value="削除したいID："/> </td>
+                    <td><h:inputText value="#{masterControl.deleteID}"/> </td>
+                    <td></td>
+                    <td></td>
+                    <td style="float: top"><h:commandButton action="#{masterControl.dalete()}" value="削除"  style="width: 100px; height: 30px"/></td>
+                    
+                </tr>
+                
+                
+                
+            
+            </table>
+            
+            </td>
+                    
+            <td style="width: 100px"></td>
+            <td style="float: right ; width: 550px">
+                <h1>一覧表</h1>    
+                
             <h:dataTable value="#{masterControl.all}"  var="row" border="1">
+                
+                <h:column >
+                    <f:facet name ="header">
+                        <h:outputText value="　ID　"/>
+                    </f:facet>
+                    
+                    <h:outputText value ="#{row.ID}" />
+                    
+                </h:column>
                 
                 <h:column >
                     <f:facet name ="header">
@@ -82,7 +161,9 @@
                 </h:column>
     
             </h:dataTable>
-
+            </td>
+            </tr>
+            </table>
         </h:form> 
         
         

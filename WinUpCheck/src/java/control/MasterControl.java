@@ -23,18 +23,25 @@ public class MasterControl implements Serializable{
     
     private MasterControl masterControl;
     
-    //入力項目の値取得？？
+    //新規登録入力項目の値取得
     @NotNull
     private String fristName;
     private String lastName;
     private String pcName;
     private int inputCheck;
-    
     private boolean checkBox;    //HTMLからはString型で取得するため、一度こちらで受け取る
+    
+    private String updateID;
+    private String newName;
+    private String newPcName;
+    
+    private String deleteID;
+        
+    
     
     //どこのDBに接続するかの宣言？
     @EJB
-    InputDb db;
+    MasterDb db;
 
     
    
@@ -48,7 +55,7 @@ public class MasterControl implements Serializable{
         String name = fristName + " " + lastName;
         MasterModel master = new MasterModel(name, pcName, inputCheck);
         try {
-            db.createMaster(master);
+            db.create(master);
             clear();
         }catch(Exception e) {
             System.out.println("新規登録失敗！！！！！");
@@ -56,9 +63,30 @@ public class MasterControl implements Serializable{
         return null;
     }
     
+    public String update() {
+        int id = Integer.parseInt(updateID);
+        
+        if(newName.length() > 0) {
+            db.nameUpdate(id, newName);
+        }
+        if(newPcName.length() > 0) {
+            db.pcNameUpdate(id, newPcName);
+        }
+        clear();
+        return null;
+    }
+
+    public String dalete() {
+        int id = Integer.parseInt(deleteID);
+        db.rogicDelete(id);
+        clear();
+        return null;
+    }
+        
     public void clear() {
         fristName = lastName= null;
         pcName = null;
+        updateID = null; 
         
         
     }
@@ -76,6 +104,16 @@ public class MasterControl implements Serializable{
         return null;   
     }
 
+    
+    
+    
+    //DBから全てのデータを取得
+    public List<MasterModel> getAll() {
+         return db.getAll();
+    }
+    
+    
+    
     public String getFristName() {
         return fristName;
     }
@@ -115,9 +153,40 @@ public class MasterControl implements Serializable{
     public void setCheckBox(boolean checkBox) {
         this.checkBox = checkBox;
     }
-    
-    //DBから全てのデータを取得
-    public List<MasterModel> getAll() {
-         return db.getAll();
+
+    public String getUpdateID() {
+        return updateID;
     }
+
+    public void setUpdateID(String updateID) {
+        this.updateID = updateID;
+    }
+
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
+
+    public String getNewPcName() {
+        return newPcName;
+    }
+
+    public void setNewPcName(String newPcName) {
+        this.newPcName = newPcName;
+    }
+
+    public String getDeleteID() {
+        return deleteID;
+    }
+
+    public void setDeleteID(String deleteID) {
+        this.deleteID = deleteID;
+    }
+
+    
+    
+
 }
