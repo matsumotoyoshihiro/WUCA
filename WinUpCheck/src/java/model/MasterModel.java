@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 public class MasterModel implements Serializable{
 
     private int ID;             //プライマリキー
+    private String familyName;
     private String Name;        //社員名
     private String PcName;      //PC名
     private int InputCheck;     //入力者一覧用フラグ
@@ -31,7 +32,8 @@ public class MasterModel implements Serializable{
         
     }
 
-    public MasterModel(String name, String pcName, int inputCheck) {
+    public MasterModel(String familyName, String name, String pcName, int inputCheck) {
+        this.familyName = familyName;
         this.Name = name;
         this.PcName = pcName;
         this.InputCheck = inputCheck;
@@ -50,6 +52,16 @@ public class MasterModel implements Serializable{
         this.ID = ID;
     }
 
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
+
+    
+    
     public String getName() {
         return Name;
     }
