@@ -23,19 +23,27 @@ public class MasterControl implements Serializable{
     
     private MasterControl masterControl;
     
-    //入力項目の値取得？？
+    //新規登録入力項目の値取得
     @NotNull
-    private String fristName;
-    private String lastName;
+    private String familyName;
+    private String name;
     private String pcName;
     private int inputCheck;
-    
     private boolean checkBox;    //HTMLからはString型で取得するため、一度こちらで受け取る
     
+    private String updateID;
+    private String newFamilyName;
+    private String newPcName;
+    
+    private String deleteID;
+        
+    
+    
     //どこのDBに接続するかの宣言？
+//    @EJB
+//    MasterDb db;
     @EJB
     InputDb db;
-
     
    
     public String next() {
@@ -45,28 +53,84 @@ public class MasterControl implements Serializable{
     }
     
     public String create() {
-        String name = fristName + " " + lastName;
-        MasterModel master = new MasterModel(name, pcName, inputCheck);
+        //同じ人を入力者一覧に追加しないようにフルネームにする
+        String fullName = familyName + " " + name;
+        checkSameName(fullName);
+        
+        MasterModel master = new MasterModel(familyName, name, pcName, inputCheck);
+                
         try {
             db.createMaster(master);
             clear();
         }catch(Exception e) {
             System.out.println("新規登録失敗！！！！！");
         }
+    
         return null;
     }
     
+    //同姓同名チェック
+    public void checkSameName(String name) {
+        //入力者追加のチェックボックスにチェックが付いているか判断
+        if(inputCheck == 1) {
+            //DBに登録されている全てのレコードを取得 (社員数やPCが増えたら全てのレコード取得は効率が悪い)
+            List<MasterModel> dbRecod = db.getAll();
+          
+            for (MasterModel nameList : dbRecod) {
+                //登録しようとしている名前がすでにDBに登録されていないかチェック
+                String fullName = nameList.getFamilyName() + " " +nameList.getName();
+                if(nameList.getInputCheck() == 1 && name.equals(fullName)){
+                    inputCheck = 0;
+                }
+            }
+        }
+    }
+    
+    
+    //社員名・PC名の変更
+    public String update() {
+        int id = Integer.parseInt(updateID);
+        
+        if(newFamilyName.length() > 0) {
+            db.nameUpdate(id, newFamilyName);
+        }
+        if(newPcName.length() > 0) {
+            db.pcNameUpdate(id, newPcName);
+        }
+        clear();
+        return null;
+    }
+
+    //レコードの論理削除(表示させないようにする)
+    public String dalete() {
+        int id = Integer.parseInt(deleteID);
+        db.rogicDelete(id);
+        clear();
+        return null;
+    }
+    
+    //各入力項目のクリア
     public void clear() {
-        fristName = lastName= null;
+        familyName = name= null;
         pcName = null;
+        updateID = deleteID = null; 
         
         
     }
     
+    //画面遷移
     public String chDisp() {
         return "input.xhtml";
     }
     
+   
+    //DBから全てのデータを取得
+    public List<MasterModel> getAll() {
+         return db.getAll();
+    }
+    
+
+    //boolean型からint型に変換
     public String isSelect() {
         if(checkBox) {
             inputCheck = 1;
@@ -76,20 +140,24 @@ public class MasterControl implements Serializable{
         return null;   
     }
 
-    public String getFristName() {
-        return fristName;
+    //
+    //以下のメソッドは各入力項目やボタン等のゲッターセッター
+    //
+    
+    public String getFamilyName() {
+        return familyName;
     }
 
-    public void setFristName(String fristName) {
-        this.fristName = fristName;
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPcName() {
@@ -115,9 +183,37 @@ public class MasterControl implements Serializable{
     public void setCheckBox(boolean checkBox) {
         this.checkBox = checkBox;
     }
-    
-    //DBから全てのデータを取得
-    public List<MasterModel> getAll() {
-         return db.getAll();
+
+    public String getUpdateID() {
+        return updateID;
     }
+
+    public void setUpdateID(String updateID) {
+        this.updateID = updateID;
+    }
+
+    public String getNewFamilyName() {
+        return newFamilyName;
+    }
+
+    public void setNewFamilyName(String newFamilyName) {
+        this.newFamilyName = newFamilyName;
+    }
+
+    public String getNewPcName() {
+        return newPcName;
+    }
+
+    public void setNewPcName(String newPcName) {
+        this.newPcName = newPcName;
+    }
+
+    public String getDeleteID() {
+        return deleteID;
+    }
+
+    public void setDeleteID(String deleteID) {
+        this.deleteID = deleteID;
+    }
+
 }
