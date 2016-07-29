@@ -31,9 +31,9 @@
             <tr>
                 <td align="right">入力者：</td>
                 <td>
-                    <h:selectOneListbox value="#{inputControl.name}" size="1" label="入力者">
-                        <f:selectItems value="#{inputControl.itemName}"/>
-                    </h:selectOneListbox>
+                    <h:selectOneRadio value="#{inputControl.name}" label="入力者">
+                        <f:selectItems value="#{inputControl.allName}"/>
+                    </h:selectOneRadio>
                 </td>
             </tr>
             
@@ -71,7 +71,8 @@
         <br></br>
         <br></br>
         <br></br>
-        <table border="1" cellspacing="0" bordercolor="#333333">平成27年度　WindowsUpdate状況一覧
+        <table border="1" cellspacing="0" bordercolor="#333333">
+            <h:outputText value="#{inputControl.strYear}年度　WindowsUpdate状況一覧"></h:outputText>
             <thead>
                 <tr>
                     <th width="150"></th>
@@ -84,9 +85,9 @@
                         <td width="30" align="center">10</td>
                         <td width="30" align="center">11</td>
                         <td width="30" align="center">12</td>
-                        <td width="30" align="center" bgcolor="#c7ffff">1</td>
-                        <td width="30" align="center" bgcolor="#c7ffff">2</td>
-                        <td width="30" align="center" bgcolor="#c7ffff">3</td>                        
+                        <td width="30" align="center">1</td>
+                        <td width="30" align="center">2</td>
+                        <td width="30" align="center">3</td>                        
                 </tr>
             </thead>
             <tbody>
@@ -101,9 +102,9 @@
                     <td align="center"></td>
                     <td align="center"></td>
                     <td align="center"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
                 </tr>
             </tbody>
             <tbody>
@@ -118,9 +119,9 @@
                     <td align="center"></td>
                     <td align="center"></td>
                     <td align="center"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
                 </tr>
             </tbody>
                         <tbody>
@@ -135,9 +136,9 @@
                     <td align="center"></td>
                     <td align="center"></td>
                     <td align="center"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
                 </tr>
             </tbody>
             <tbody>
@@ -152,12 +153,33 @@
                     <td align="center"></td>
                     <td align="center"></td>
                     <td align="center"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
-                    <td align="center" bgcolor="#c7ffff"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
                 </tr>
             </tbody>            
         </table> 
+                    <h:dataTable value="#{masterControl.all}"  var="row" border="1">
+                
+                <h:column >
+                    <f:facet name ="header">
+                        <h:outputText value="　社員名　"/>
+                    </f:facet>
+                    
+                    <h:outputText value ="#{row.name}" />
+                    
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="　PC名　"/>
+                    </f:facet>
+                    
+                    <h:outputText value ="#{row.pcName}" />     
+                    
+                </h:column>
+    
+            </h:dataTable>
 <!--    <h:dataTable value="#{tableData.rowData}" var="row" 
                  border="1" cellpadding="0" cellspacing="0"
                  rowClasses="data" columnClasses="center,center"
