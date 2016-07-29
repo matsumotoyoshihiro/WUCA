@@ -5,6 +5,7 @@
  */
 package control;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,7 +14,7 @@ import model.InputModel;
 import model.MasterModel;
 
 @Stateless
-public class InputDb {
+public class Db {
     @PersistenceContext
     private EntityManager em;
 
@@ -33,16 +34,20 @@ public class InputDb {
         return em.createQuery("SELECT c FROM MasterModel c").getResultList();
     }
     
-//    public List<MasterModel> getAllName() {
-//        return em.createQuery(QUERY_NAME)
-//                .setParameter(INPUTCHECK, 1)
-//                .getResultList();
-//}
-//    
-//    public List<MasterModel> findAll() {
-//        javax.persistence.criteria.CriteriaQuery cq
-//                = em.getCriteriaBuilder().createQuery();
-//        cq.select(cq.from(MasterModel.class));
-//        return em.createQuery(cq).getResultList();
-//    }    
+    public void rogicDelete(int id) {
+        MasterModel master = em.find(MasterModel.class, id);
+        master.setDeleteFlag(1);
+    }
+    
+    public void nameUpdate(int id, String newName){
+        MasterModel master = em.find(MasterModel.class, id);
+        master.setName(newName);
+        master.setUpdateDate(new Date());
+    }
+    
+    public void pcNameUpdate(int id, String newPcName) {
+        MasterModel master = em.find(MasterModel.class, id);
+        master.setPcName(newPcName);
+        master.setUpdateDate(new Date());
+    }  
 }
