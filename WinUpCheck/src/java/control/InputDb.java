@@ -5,7 +5,6 @@
  */
 package control;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,11 +13,12 @@ import model.InputModel;
 import model.MasterModel;
 
 @Stateless
-public class Db {
+public class InputDb {
     @PersistenceContext
     private EntityManager em;
-    private static final String QUERY_NAME = "SELECT c.name from MasterModel c WHERE c.inputCheck = 1 ORDER BY c.name desc";
-    private static final String QUERY_PCNAME = "SELECT concat(c.name, '：' , c.pcName) from MasterModel c ORDER BY c.name desc";
+
+    private static final String INPUTCHECK = "inputCkeck";
+    private static final String QUERY_NAME = "SELECT name FROM MasterModel c where c.inputcheck=:inputCkeck";
 
     public void create(InputModel input) {
         em.persist(input);
@@ -30,25 +30,14 @@ public class Db {
     
     
     public List<MasterModel> getAll() {
-        return em.createQuery("SELECT c FROM MasterModel c order by c.name desc").getResultList();
+        return em.createQuery("SELECT c FROM MasterModel c").getResultList();
     }
     
-    public List<MasterModel> getAllName() {
-        return em.createQuery(QUERY_NAME)
-                .getResultList();
-    }
-    
-    public List<MasterModel> getAllPcName() {
-        return em.createQuery(QUERY_PCNAME)
-                .getResultList();
-    }
-    
-    
-//    public ArrayList<MasterModel> getPcName() {
-//        return em.createQuery(QUERY_PCNAME)
+//    public List<MasterModel> getAllName() {
+//        return em.createQuery(QUERY_NAME)
+//                .setParameter(INPUTCHECK, 1)
 //                .getResultList();
-//    }    
-    
+//}
 //    
 //    public List<MasterModel> findAll() {
 //        javax.persistence.criteria.CriteriaQuery cq

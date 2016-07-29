@@ -11,7 +11,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import model.InputModel;
-import model.MasterModel;
 //import model.MasterModel;
 
 @Named
@@ -26,7 +25,7 @@ public class InputControl {
 
     
     @EJB
-    Db db;
+    InputDb db;
 
     private static Map<String, String> itemName;    
     private static Map<String, String> itemPcName;    
@@ -157,15 +156,7 @@ public class InputControl {
         Note = null;
     }
     
-    public List<MasterModel> getAll() {
-        return db.getAll();
-    }
-    
-    public List<MasterModel> getAllName() {
-        return db.getAllName();
-    }
-    
-    public List<MasterModel> getAllPcName() {
-        return db.getAllPcName();
-    }    
+//    public List<MasterModel> getAllName() {
+//        return db.getAllName();
+//    }
 }
