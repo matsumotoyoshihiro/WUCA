@@ -43,7 +43,7 @@ public class MasterControl implements Serializable{
 //    @EJB
 //    MasterDb db;
     @EJB
-    InputDb db;
+    Db db;
     
    
     public String next() {

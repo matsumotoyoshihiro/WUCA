@@ -25,7 +25,7 @@ public class InputControl {
 
     
     @EJB
-    InputDb db;
+    Db db;
 
     private static Map<String, String> itemName;    
     private static Map<String, String> itemPcName;    
@@ -59,7 +59,7 @@ public class InputControl {
 
 //    public List<SelectItem> getItemNameList() {
 //        ArrayList<SelectItem> itemNamelist = new ArrayList<SelectItem>();
-//        return InputDb.getAllName();
+//        return Db.getAllName();
 //    }
 
     public void setItemNameList(List<SelectItem> itemNameList) {
