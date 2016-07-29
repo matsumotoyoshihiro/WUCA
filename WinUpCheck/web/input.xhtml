@@ -41,7 +41,7 @@
                 <td align="right">PC名：</td>
                 <td>
                     <h:selectOneListbox value="#{inputControl.pcName}" size="1" label="PC名">
-                        <f:selectItems value="#{inputControl.itemPcName}" />
+                        <f:selectItems value="#{inputControl.allPcName}" />
                     </h:selectOneListbox>
                 </td>
             </tr>
@@ -159,7 +159,7 @@
                 </tr>
             </tbody>            
         </table> 
-                    <h:dataTable value="#{masterControl.all}"  var="row" border="1">
+<!--                    <h:dataTable value="#{masterControl.all}"  var="row" border="1">
                 
                 <h:column >
                     <f:facet name ="header">
@@ -179,29 +179,97 @@
                     
                 </h:column>
     
-            </h:dataTable>
-<!--    <h:dataTable value="#{tableData.rowData}" var="row" 
+            </h:dataTable>-->
+<!--    <h:dataTable value="#{inputControl.all}" var="row" 
                  border="1" cellpadding="0" cellspacing="0"
                  rowClasses="data" columnClasses="center,center"
-                 captionClass="caption" headerClass="header" footerClass="footer">
+                 captionClass="caption" headerClass="header" footerClass="footer">-->
+        <h:dataTable value="#{inputControl.all}" var="row" border="1" cellspacing="0" bodyrows="12" width="600">
         <f:facet name="caption">
-            <h:outputText value="平成27年度　WindowsUpdate状況一覧"/>
+            <h:outputText value="#{inputControl.strYear}年度　WindowsUpdate状況一覧"></h:outputText>
         </f:facet>
         
         <h:column>
             <f:facet name="header">
                 <h:outputText value="社員名＋PC名"/>
             </f:facet>
-            <h:outputText value="#{inputModel.name}+#{inputModel.pcName}"/>
+            <h:outputText value="#{row.name} ： #{row.pcName}"/>
+            <!--<h:outputText value="#{inputControl.allPcName}"/>-->
         </h:column>
         
         <h:column>
             <f:facet name="header">
+                <h:outputText value="4"/>
+            </f:facet>
+            <!--<h:outputText value="#{inputModel.state}"/>-->
+        </h:column>        
+        
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="5"/>
+            </f:facet>
+        </h:column>       
+            
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="6"/>
+            </f:facet>
+        </h:column> 
+
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="7"/>
+            </f:facet>
+        </h:column> 
+            
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="8"/>
+            </f:facet>
+        </h:column> 
+
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="9"/>
+            </f:facet>
+        </h:column> 
+
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="10"/>
+            </f:facet>
+        </h:column>         
+            
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="11"/>
+            </f:facet>
+        </h:column>  
+
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="12"/>
+            </f:facet>
+        </h:column>  
+
+        <h:column>
+            <f:facet name="header">
                 <h:outputText value="1"/>
             </f:facet>
-            <h:outputText value="#{inputModel.state}"/>
-        </h:column>           
-    </h:dataTable>-->
+        </h:column>  
+
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="２"/>
+            </f:facet>
+        </h:column>  
+
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="３"/>
+            </f:facet>
+        </h:column>              
+    </h:dataTable>
         </h:form>
     </h:body>
 </html>
