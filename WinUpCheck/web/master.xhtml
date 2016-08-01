@@ -46,7 +46,7 @@
                     <td><h:inputText value="#{masterControl.familyName}" /></td>
                     <td><h:outputLabel value="名:" /></td>
                     <td><h:inputText value="#{masterControl.name}" /></td>
-                    <td><h:selectBooleanCheckbox value="#{masterControl.checkBox}"/>入力者一覧に追加</td>
+                    <td></td>
                     
                 </tr>
             
@@ -86,17 +86,17 @@
                 </tr>
                 
                 <tr>
-                    <td style="float: right"> <h:outputLabel value="新しい社員名 （姓のみ）："/> </td>
-                    <td> <h:inputText value="#{masterControl.newFamilyName}" /> </td>
-                    <td></td>
-                    <td></td>
+                    <td style="float: right"> <h:outputLabel value="新しい社員名 姓："/> </td>
+                    <td><h:inputText value="#{masterControl.newFamilyName}" /> </td>
+                    <td style="float: right"><h:outputLabel value="名：" ></h:outputLabel></td>
+                    <td><h:inputText value="#{masterControl.newName}"/></td>
                 </tr>
                 
                 <tr>
                     <td style="float: right"> <h:outputLabel value="新しいPC名：" /> </td>
                     <td> <h:inputText value="#{masterControl.newPcName}" /> </td>
                     <td style="width: 115px"></td>
-                    <td><h:commandButton action="#{masterControl.update()}" value="更新"  style="width: 100px; height: 30px"/></td>
+                    <td style="float: right"><h:commandButton action="#{masterControl.update()}" value="更新"  style="width: 100px; height: 30px"/></td>
                 </tr>
             
             </table>
