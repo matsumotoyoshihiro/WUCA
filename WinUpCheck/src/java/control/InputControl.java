@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import model.InputModel;
 import model.MasterModel;
@@ -23,58 +22,18 @@ public class InputControl {
     private String Status;
     private String Note; 
     private String strYear;        
-
     
     @EJB
     Db db;
 
-    private static Map<String, String> itemName;    
-    private static Map<String, String> itemPcName;    
     private static Map<String, String> itemStatus;
-    private List<SelectItem> itemNameList = null;
-
-    static {
-//        MasterModel master = new MasterModel();
-        itemName = new LinkedHashMap<>();
-        itemName.put("松村", "松村");
-        itemName.put("赤間", "赤間"); 
-        itemName.put("山内", "山内");
-        itemName.put("松本", "松本");
-//        itemName.put(master.getName(),master.getName());
-    }
-    
-    static {
-        itemPcName = new LinkedHashMap<>();
-        itemPcName.put("松村：OCC-PC1", "松村：OCC-PC1");
-        itemPcName.put("赤間：OCC-PC2", "赤間：OCC-PC2");
-        itemPcName.put("山内：OCC-PC3", "山内：OCC-PC3");
-        itemPcName.put("松本：OCC-PC4", "松本：OCC-PC4");
-    }      
     
     static {
         itemStatus = new LinkedHashMap<>();
         itemStatus.put("◯", "0");
         itemStatus.put("※", "1");
         itemStatus.put("", null);
-    }          
-
-//    public List<SelectItem> getItemNameList() {
-//        ArrayList<SelectItem> itemNamelist = new ArrayList<SelectItem>();
-//        return Db.getAllName();
-//    }
-
-    public void setItemNameList(List<SelectItem> itemNameList) {
-        this.itemNameList = itemNameList;
-    }
-    
-
-    public Map<String, String> getItemName() {
-        return itemName;
-    }
-
-    public Map<String, String> getItemPcName() {
-        return itemPcName;
-    }
+    }              
 
     public Map<String, String> getItemStatus() {
         return itemStatus;
@@ -114,6 +73,7 @@ public class InputControl {
     }
     
     public String getStrYear() {
+        InputModel input = new InputModel(Name, PcName, Status, Note);
         Date date = new Date();
         SimpleDateFormat sdfYear = new SimpleDateFormat("YYYY");         
         SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");
@@ -121,6 +81,7 @@ public class InputControl {
         String forMonth = sdfMonth.format(date);
         int year = Integer.parseInt(forYear);                  
         int month = Integer.parseInt(forMonth);
+//int month = input.getRecodeTime().getMonth();
         
         if (month < 4) {
             year = year - 1 ;
@@ -134,11 +95,6 @@ public class InputControl {
     public String masterDisp() {
         return "master";
     }        
-    
-    public String next() {
-        create();
-        return null;
-    }
         
     public void create() { 
         InputModel input = new InputModel(Name, PcName, Status, Note);
@@ -157,9 +113,49 @@ public class InputControl {
         Note = null;
     }
     
+    public void indicate() {
+        InputModel input = new InputModel(Name, PcName, Status, Note);
+        SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");
+//        String strRecodeMonth = sdfMonth.format(input.getRecodeTime());
+int strRecodeMonth = input.getRecodeTime().getMonth();
+//        int intRecodeMonth = Integer.parseInt(strRecodeMonth);
+        int numRows = getAll().size();
+        
+        for (int i = 0; i < numRows; i++) {
+        if(getAll().contains(PcName)) {
+            System.out.println("aaa");
+        }
+        }
+
+    }
+    
+    public List month() {
+        List<Integer> month = new ArrayList<Integer>();
+        int i;
+        
+            for (i = 4; i <= 12; i++) {
+                month.add(i);
+            }
+            for (i = 1; i <= 3; i++) {
+                month.add(i);
+            }
+            return month;
+    }
+    
     public List<MasterModel> getAll() {
         return db.getAll();
     }
+    
+//    public void list() {
+//        InputModel input = new InputModel();
+//        for (int i = 0; i < getAll().size; i++) {
+//            String pc = getall(i);
+//            for (int j = 0; j < 13 ; j++) {
+//                m = montt.get(j);
+//                pc , m
+//            }
+//        }
+//    }
     
     public List<MasterModel> getAllName() {
         return db.getAllName();
