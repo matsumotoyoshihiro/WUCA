@@ -16,9 +16,28 @@
             }
         </style>
 
+
+        
+        
     </h:head>
     <h:body>
-        <!--<div><h1>マスタ登録</h1></div>-->
+        
+        <script type="text/javascript">
+        
+            function delCheck() {
+                     
+            if(window.confirm('本当に削除してもよろしいですか？')) {
+              
+                document.write("#{masterControl.dalete()}");    //OKのとき入力したレコードを論理削除
+                window.alert('削除しました');
+            }else {
+                window.alert('削除がキャンセルされました');
+            }
+        }
+    
+        </script>
+        
+        
         <h:form>
             <table style="height: 600px; width: 1500px">
                 <tr><td>
@@ -113,10 +132,10 @@
                 
                 <tr style="height: 50px">
                     <td><h:outputLabel value="削除したいID："/> </td>
-                    <td><h:inputText value="#{masterControl.deleteID}"/> </td>
+                    <td><h:inputText  value="#{masterControl.deleteID}"/> </td>
                     <td></td>
                     <td></td>
-                    <td style="float: top"><h:commandButton action="#{masterControl.dalete()}" value="削除"  style="width: 100px; height: 30px"/></td>
+                    <td style="float: top"><h:commandButton  onclick="delCheck()" value="削除"  style="width: 100px; height: 30px"/></td>
                     
                 </tr>
                 
@@ -129,7 +148,7 @@
                     
             <td style="width: 100px"></td>
             <td style="float: right ; width: 550px">
-                <h1>一覧表</h1>    
+                <h1>一覧表(名前順)</h1>    
                 
             <h:dataTable value="#{masterControl.all}"  var="row" border="1">
                 

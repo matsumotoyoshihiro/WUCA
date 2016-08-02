@@ -29,26 +29,22 @@ public class MasterControl implements Serializable{
     private String name;
     private String pcName;
     private int inputCheck = 1;     //デフォルトで入力者に追加するように設定
-//    private boolean checkBox;    //HTMLからはString型で取得するため、一度こちらで受け取る
     
     private String updateID;
     private String newFamilyName;
     private String newName;
     private String newPcName;
     
-    private String deleteID;
+    private String deleteID;  //画面遷移した際に、初期値としてNULLが入ってくるため
         
     
     
-    //どこのDBに接続するかの宣言？
-//    @EJB
-//    MasterDb db;
+    //どこのDBに接続するかの
     @EJB
     Db db;
     
    
     public String next() {
-//        isSelect();
         create();
         return null;
     }
@@ -73,6 +69,7 @@ public class MasterControl implements Serializable{
     //同姓同名チェック
     public void checkSameName(String name) {
         //DBに登録されている全てのレコードを取得 (社員数やPCが増えたら全てのレコード取得は効率が悪い)
+        //新しくWhereを含んだSQLのメソッドを作成するか悩む
         List<MasterModel> dbRecod = db.getAll();
 
         for (MasterModel nameList : dbRecod) {
@@ -87,29 +84,34 @@ public class MasterControl implements Serializable{
     
     //社員名・PC名の変更
     public String update() {
-        int id = Integer.parseInt(updateID);
-        
-        if(newFamilyName.length() > 0) {
-            db.familyNameUpdate(id, newFamilyName);
+        if(updateID != null) {
+            int id = Integer.parseInt(updateID);
+
+            if(newFamilyName.length() > 0) {
+                db.familyNameUpdate(id, newFamilyName);
+            }
+
+            if(newName.length() > 0) {
+                db.nameUpdate(id, newName);
+            }
+
+            if(newPcName.length() > 0) {
+                db.pcNameUpdate(id, newPcName);
+            }
+            clear();
         }
-        
-        if(newName.length() > 0) {
-            db.nameUpdate(id, newName);
-        }
-        
-        if(newPcName.length() > 0) {
-            db.pcNameUpdate(id, newPcName);
-        }
-        clear();
         return null;
+        
     }
 
     //レコードの論理削除(表示させないようにする)
-    public String dalete() {
-        int id = Integer.parseInt(deleteID);
-        db.rogicDelete(id);
-        clear();
-        return null;
+    public void dalete() {
+        //入力値がNULLの場合の対処
+        if(deleteID != null) {
+            Integer id = Integer.parseInt(deleteID);
+            db.rogicDelete(id);
+            clear();
+        }
     }
     
     //各入力項目のクリア
