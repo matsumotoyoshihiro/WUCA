@@ -71,94 +71,6 @@
         <br></br>
         <br></br>
         <br></br>
-        <table border="1" cellspacing="0" bordercolor="#333333">
-            <h:outputText value="#{inputControl.strYear}年度　WindowsUpdate状況一覧"></h:outputText>
-            <thead>
-                <tr>
-                    <th width="150"></th>
-                        <td width="30" align="center">4</td>
-                        <td width="30" align="center">5</td>
-                        <td width="30" align="center">6</td>
-                        <td width="30" align="center">7</td>
-                        <td width="30" align="center">8</td>
-                        <td width="30" align="center">9</td>
-                        <td width="30" align="center">10</td>
-                        <td width="30" align="center">11</td>
-                        <td width="30" align="center">12</td>
-                        <td width="30" align="center">1</td>
-                        <td width="30" align="center">2</td>
-                        <td width="30" align="center">3</td>                        
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>松村：OCC-PC1</th>
-                    <td align="center">○</td>
-                    <td align="center">○</td>
-                    <td align="center">○</td>
-                    <td align="center">※</td>
-                    <td align="center">○</td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <th>赤間：OCC-PC2</th>
-                    <td align="center">○</td>
-                    <td align="center">○</td>
-                    <td align="center">○</td>
-                    <td align="center">※</td>
-                    <td align="center">○</td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                </tr>
-            </tbody>
-                        <tbody>
-                <tr>
-                    <th>山内：OCC-PC3</th>
-                    <td align="center">○</td>
-                    <td align="center">○</td>
-                    <td align="center">○</td>
-                    <td align="center">※</td>
-                    <td align="center">○</td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <th>松本：OCC-PC4</th>
-                    <td align="center">○</td>
-                    <td align="center">○</td>
-                    <td align="center">○</td>
-                    <td align="center">※</td>
-                    <td align="center">○</td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                </tr>
-            </tbody>            
-        </table> 
 
         <h:dataTable value="#{inputControl.all}" var="row" border="1" cellspacing="0" bodyrows="12" width="600">
         <f:facet name="caption">
@@ -170,80 +82,98 @@
                 <h:outputText value="社員名＋PC名"/>
             </f:facet>
             <h:outputText value="#{row.name} ： #{row.pcName}"/>
-            <!--<h:outputText value="#{inputControl.allPcName}"/>-->
         </h:column>
         
         <h:column>
             <f:facet name="header">
-                <h:outputText value="#{inputControl.month()}"/>
+                <h:outputText value="４"/>
             </f:facet>
-        </h:column>        
+        </h:column>       
+<!--            <h:dataTable value="#{inputControl.month()}" var="month"  border="1" cellspacing="0" bodyrows="12" width="600">
+                <h:column>
+                    <f:facet name="header">
+                    <h:outputText value="#{month}"/>
+                    </f:facet>
+                </h:column>
+            </h:dataTable>-->
+        <!--</h:column>-->
         
-        <h:column>
+<!--        <h:column>
             <f:facet name="header">
                 <h:outputText value="５"/>
             </f:facet>
+            <h:outputText value="#{inputControl.list()}"/>
         </h:column>       
             
         <h:column>
             <f:facet name="header">
                 <h:outputText value="６"/>
             </f:facet>
+            <h:outputText value="#{inputControl.list()}"/>
         </h:column> 
 
         <h:column>
             <f:facet name="header">
                 <h:outputText value="７"/>
             </f:facet>
+            <h:outputText value="#{inputControl.list()}"/>
         </h:column> 
             
         <h:column>
             <f:facet name="header">
                 <h:outputText value="８"/>
             </f:facet>
+            <h:outputText value="#{inputControl.list()}"/>
         </h:column> 
 
         <h:column>
             <f:facet name="header">
                 <h:outputText value="９"/>
             </f:facet>
+            <h:outputText value="#{inputControl.list()}"/>
         </h:column> 
 
         <h:column>
             <f:facet name="header">
                 <h:outputText value="10"/>
             </f:facet>
+            <h:outputText value="#{inputControl.list()}"/>
         </h:column>         
             
         <h:column>
             <f:facet name="header">
                 <h:outputText value="11"/>
             </f:facet>
+            <h:outputText value="#{inputControl.list()}"/>
         </h:column>  
 
         <h:column>
             <f:facet name="header">
                 <h:outputText value="12"/>
             </f:facet>
+            <h:outputText value="#{inputControl.list()}"/>
         </h:column>  
 
         <h:column>
             <f:facet name="header">
                 <h:outputText value="１"/>
             </f:facet>
+            <h:outputText value="#{inputControl.list()}"/>
         </h:column>  
 
         <h:column>
             <f:facet name="header">
                 <h:outputText value="２"/>
             </f:facet>
+            <h:outputText value="#{inputControl.list()}"/>
         </h:column>  
 
         <h:column>
             <f:facet name="header">
                 <h:outputText value="３"/>
             </f:facet>
-        </h:column>              
+            <h:outputText value="#{inputControl.list()}"/>
+        </h:column>              -->
     </h:dataTable>
         </h:form>
     </h:body>

@@ -5,7 +5,6 @@
  */
 package control;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -44,7 +43,12 @@ public class Db {
                 .getResultList();
     }
 
-	public void rogicDelete(int id) {
+    public List<InputModel> getInputAll() {
+        return em.createQuery("SELECT i FROM InputModel i order by i.Name desc")
+                .getResultList();
+    }
+    
+    public void rogicDelete(int id) {
         MasterModel master = em.find(MasterModel.class, id);
         master.setDeleteFlag(1);
     }

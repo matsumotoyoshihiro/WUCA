@@ -22,6 +22,8 @@ public class InputControl {
     private String Status;
     private String Note; 
     private String strYear;        
+    SimpleDateFormat sdfYear = new SimpleDateFormat("YYYY");         
+    SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");    
     
     @EJB
     Db db;
@@ -30,8 +32,8 @@ public class InputControl {
     
     static {
         itemStatus = new LinkedHashMap<>();
-        itemStatus.put("◯", "0");
-        itemStatus.put("※", "1");
+        itemStatus.put("◯", "◯");
+        itemStatus.put("※", "※");
         itemStatus.put("", null);
     }              
 
@@ -70,31 +72,7 @@ public class InputControl {
 
     public void setNote(String Note) {
         this.Note = Note;
-    }
-    
-    public String getStrYear() {
-        InputModel input = new InputModel(Name, PcName, Status, Note);
-        Date date = new Date();
-        SimpleDateFormat sdfYear = new SimpleDateFormat("YYYY");         
-        SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");
-        String forYear = sdfYear.format(date);        
-        String forMonth = sdfMonth.format(date);
-        int year = Integer.parseInt(forYear);                  
-        int month = Integer.parseInt(forMonth);
-//int month = input.getRecodeTime().getMonth();
-        
-        if (month < 4) {
-            year = year - 1 ;
-        }
-        
-        strYear = String.valueOf(year);        
-        
-        return strYear;        
-    }
-
-    public String masterDisp() {
-        return "master";
-    }        
+    }         
         
     public void create() { 
         InputModel input = new InputModel(Name, PcName, Status, Note);
@@ -112,50 +90,14 @@ public class InputControl {
         Status = null;
         Note = null;
     }
-    
-    public void indicate() {
-        InputModel input = new InputModel(Name, PcName, Status, Note);
-        SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");
-//        String strRecodeMonth = sdfMonth.format(input.getRecodeTime());
-int strRecodeMonth = input.getRecodeTime().getMonth();
-//        int intRecodeMonth = Integer.parseInt(strRecodeMonth);
-        int numRows = getAll().size();
-        
-        for (int i = 0; i < numRows; i++) {
-        if(getAll().contains(PcName)) {
-            System.out.println("aaa");
-        }
-        }
 
-    }
-    
-    public List month() {
-        List<Integer> month = new ArrayList<Integer>();
-        int i;
-        
-            for (i = 4; i <= 12; i++) {
-                month.add(i);
-            }
-            for (i = 1; i <= 3; i++) {
-                month.add(i);
-            }
-            return month;
-    }
+    public String masterDisp() {
+        return "master";
+    }        
     
     public List<MasterModel> getAll() {
         return db.getAll();
-    }
-    
-//    public void list() {
-//        InputModel input = new InputModel();
-//        for (int i = 0; i < getAll().size; i++) {
-//            String pc = getall(i);
-//            for (int j = 0; j < 13 ; j++) {
-//                m = montt.get(j);
-//                pc , m
-//            }
-//        }
-//    }
+    }    
     
     public List<MasterModel> getAllName() {
         return db.getAllName();
@@ -163,5 +105,70 @@ int strRecodeMonth = input.getRecodeTime().getMonth();
     
     public List<MasterModel> getAllPcName() {
         return db.getAllPcName();
+    }     
+    
+    public List<InputModel> getInputAll() {
+        return db.getInputAll();
+    }
+    
+    public String getStrYear() {
+        Date date = new Date();
+        String forYear = sdfYear.format(date);        
+        String forMonth = sdfMonth.format(date);
+        int year = Integer.parseInt(forYear);                  
+        int month = Integer.parseInt(forMonth);
+        
+        if (month < 4) {
+            year = year - 1 ;
+        }
+        
+        strYear = String.valueOf(year);        
+        return strYear;        
+    }
+   
+    public List month() {
+        List<Integer> month = new ArrayList<Integer>();
+        int i;
+        
+        for (i = 4; i <= 12; i++) {
+            month.add(i);
+        }
+        for (i = 1; i <= 3; i++) {
+            month.add(i);
+        }
+        return month;
     }    
+    
+//    public String list(String pcName, int month) {
+////        List<String> list = new ArrayList<String>();
+////        Date date = new Date();
+////        String forMonth = sdfMonth.format(date);
+////        int realMonth = Integer.parseInt(forMonth);      
+//        String status = null;  
+//
+//
+//            for(int k = 0; k < getInputAll().size(); k++) {
+//                InputModel inputAll = getInputAll().get(k);    
+//                Object inputMonth = inputAll.getRecodeTime().getMonth();
+//        if(name.equals(inputAll.getPcName())) {                
+////            if(m == inputMonth) {
+//                if (month == inputMonth) {
+//                    
+//                    for (int i = 0; i < getAll().size(); i++) {
+//                        MasterModel master = getAll().get(i);
+//                        String pcName = master.getName() + "：" +master.getPcName();
+//                        if(pcName.equals(inputAll.getPcName())) {
+//                            status = inputAll.getState();
+//                            
+//                        }
+//                        
+//                    } 
+//                }
+//            }
+//                    
+//                        
+//        }
+//
+//    }
+
 }
