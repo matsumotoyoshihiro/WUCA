@@ -33,18 +33,23 @@ public class Db {
         return em.createQuery("SELECT c FROM MasterModel c order by c.name desc").getResultList();
     }
     
-    public List<MasterModel> getAllName() {
+    public List<MasterModel> getNameAll() {
         return em.createQuery(QUERY_NAME)
                 .getResultList();
     }
     
-    public List<MasterModel> getAllPcName() {
+    public List<MasterModel> getPcNameAll() {
         return em.createQuery(QUERY_PCNAME)
                 .getResultList();
     }
 
     public List<InputModel> getInputAll() {
         return em.createQuery("SELECT i FROM InputModel i order by i.Name desc")
+                .getResultList();
+    }
+    
+    public List<InputModel> getList() {
+        return em.createQuery("select m.name, i.pcname, i.recodetime, i.status from MasterModelr m left join tbl_input i on i.pcname = concat(m.name, '：' , m.pcName)  order by name desc")
                 .getResultList();
     }
     

@@ -32,7 +32,7 @@
                 <td align="right">入力者：</td>
                 <td>
                     <h:selectOneRadio value="#{inputControl.name}" label="入力者">
-                        <f:selectItems value="#{inputControl.allName}"/>
+                        <f:selectItems value="#{inputControl.nameAll}"/>
                     </h:selectOneRadio>
                 </td>
             </tr>
@@ -41,7 +41,7 @@
                 <td align="right">PC名：</td>
                 <td>
                     <h:selectOneListbox value="#{inputControl.pcName}" size="1" label="PC名">
-                        <f:selectItems value="#{inputControl.allPcName}" />
+                        <f:selectItems value="#{inputControl.pcNameAll}" />
                     </h:selectOneListbox>
                 </td>
             </tr>
@@ -85,9 +85,15 @@
         </h:column>
         
         <h:column>
-            <f:facet name="header">
+            <h:dataTable value="#{inputControl.list(3)}" var="list">
+<!--            <f:facet name="header">
                 <h:outputText value="４"/>
-            </f:facet>
+            </f:facet>-->
+            <!--<h:outputText value=""></h:outputText>-->
+            <h:column>
+                <h:outputText value="#{list}"/>
+            </h:column>
+            </h:dataTable>
         </h:column>       
 <!--            <h:dataTable value="#{inputControl.month()}" var="month"  border="1" cellspacing="0" bodyrows="12" width="600">
                 <h:column>
@@ -174,7 +180,7 @@
             </f:facet>
             <h:outputText value="#{inputControl.list()}"/>
         </h:column>              -->
-    </h:dataTable>
+        </h:dataTable>
         </h:form>
     </h:body>
 </html>
