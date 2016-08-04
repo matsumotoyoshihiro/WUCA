@@ -3,6 +3,7 @@ package control;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,10 @@ public class InputControl {
     private String PcName;    
     private String Status;
     private String Note; 
-    private String strYear;        
-
+    private String strYear;     
     
+    private Map<String, String> yearMap = new HashMap<>();
+
     @EJB
     Db db;
 
@@ -168,4 +170,95 @@ public class InputControl {
     public List<MasterModel> getAllPcName() {
         return db.getAllPcName();
     }    
+    
+    public List<InputModel> getInputAll() {
+        return db.getInputAll();
+    }
+    
+    public List updateList(){
+        createYearMap();
+        
+        //viewに送るリスト
+        List<List> updateList = new ArrayList<>();
+        
+        //ヘッダーの作成
+        List<String> haeder = new ArrayList<>();
+        haeder.add("社員名：PC名");
+
+        for(int i = 1; i <= yearMap.size(); i++) {
+            haeder.add(yearMap.get(String.valueOf(i)));
+        }
+        
+        //ヘッダ用リスト作成
+        updateList.add(haeder);
+                
+        List<MasterModel> masterAll = getAll();
+        List<InputModel> inputAll = getInputAll();
+        for (int i = 0; i < masterAll.size(); i++) {
+            //各社員の情報をリスト化
+            List<String> emproyList = new ArrayList<>();
+            
+            //マスターテーブルを1行ずつ取得
+            MasterModel masterRecoed = masterAll.get(i);
+            //社員名：PC名の追加
+            String emproy = masterRecoed.getName() + "：" + masterRecoed.getPcName();
+            emproyList.add(emproy);
+            
+            //一度リストに値を全て入れる
+            for(int j = 1; j <= yearMap.size(); j++) {
+                emproyList.add("　");
+            }
+            
+            //ここから下はaddではなくアップデート
+            
+            //ここからは各月のステータス
+            for(int j = 0; j < inputAll.size(); j++) {
+                //DBに登録されているインプットテーブルを取得
+                InputModel inputRecoed = inputAll.get(j);
+                    
+                //取得した各テーブルの「名前：PC名」一致しているかチェック
+                if(emproy.equals(inputRecoed.getPcName())) {
+                        
+                    //どの月かをチェックする
+                    //まずはデータ加工(月だけ取得)
+                    String updateMonth = new SimpleDateFormat("M").format(inputRecoed.getRecodeTime());
+                    
+                    
+                    for(int k = 1; k <= yearMap.size(); k++) {
+                        if(updateMonth.equals(yearMap.get(String.valueOf(k)))) {
+                            if(inputRecoed.getState() != null) {
+                                emproyList.set(k, inputRecoed.getState());
+                            }else {
+                                emproyList.set(k, "　");
+                            }
+                        }
+                    }
+
+                }            
+            }
+                
+            //最後にこのリストを全体のリストに追加
+            updateList.add(emproyList);
+        }            
+            return updateList;
+    }
+    
+    //4月始まりのカレンダー
+    private void createYearMap() {
+        
+        yearMap.put("1", "4");
+        yearMap.put("2", "5");
+        yearMap.put("3", "6");
+        yearMap.put("4", "7");
+        yearMap.put("5", "8");
+        yearMap.put("6", "9");
+        yearMap.put("7", "10");
+        yearMap.put("8", "11");
+        yearMap.put("9", "12");
+        yearMap.put("10", "1");
+        yearMap.put("11", "2");
+        yearMap.put("12", "3");
+             
+    }
+    
 }
