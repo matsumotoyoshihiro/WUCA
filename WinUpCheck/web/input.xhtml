@@ -31,7 +31,7 @@
             <tr>
                 <td align="right">入力者：</td>
                 <td>
-                    <h:selectOneRadio value="#{inputControl.name}" label="入力者">
+                    <h:selectOneRadio value="#{inputControl.familyName}" label="入力者">
                         <f:selectItems value="#{inputControl.nameAll}"/>
                     </h:selectOneRadio>
                 </td>
@@ -72,114 +72,60 @@
         <br></br>
         <br></br>
 
-        <h:dataTable value="#{inputControl.all}" var="row" border="1" cellspacing="0" bodyrows="12" width="600">
+        <h:dataTable value="#{inputControl.list()}" var="row"  border="1" cellspacing="0" bodyrows="12" width="600">
         <f:facet name="caption">
             <h:outputText value="#{inputControl.strYear}年度　WindowsUpdate状況一覧"></h:outputText>
         </f:facet>
         
         <h:column>
-            <f:facet name="header">
-                <h:outputText value="社員名＋PC名"/>
-            </f:facet>
-            <h:outputText value="#{row.name} ： #{row.pcName}"/>
+            <h:outputText value="#{row.get(0)}"/>
         </h:column>
         
         <h:column>
-            <h:dataTable value="#{inputControl.list(3)}" var="list">
 <!--            <f:facet name="header">
                 <h:outputText value="４"/>
-            </f:facet>-->
-            <!--<h:outputText value=""></h:outputText>-->
+        </f:facet>-->
+            <h:outputText value="#{row.get(1)}"/>
+        </h:column>    
+            
+        <h:column>
+            <h:outputText value="#{row.get(2)}"/>
+        </h:column> 
+          
+        <h:column>
+            <h:outputText value="#{row.get(3)}"/>
+        </h:column> 
+            
             <h:column>
-                <h:outputText value="#{list}"/>
-            </h:column>
-            </h:dataTable>
-        </h:column>       
-<!--            <h:dataTable value="#{inputControl.month()}" var="month"  border="1" cellspacing="0" bodyrows="12" width="600">
-                <h:column>
-                    <f:facet name="header">
-                    <h:outputText value="#{month}"/>
-                    </f:facet>
-                </h:column>
-            </h:dataTable>-->
-        <!--</h:column>-->
-        
-<!--        <h:column>
-            <f:facet name="header">
-                <h:outputText value="５"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
-        </h:column>       
-            
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="６"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
-        </h:column> 
-
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="７"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
+            <h:outputText value="#{row.get(4)}"/>
         </h:column> 
             
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="８"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
+            <h:column>
+            <h:outputText value="#{row.get(5)}"/>
         </h:column> 
-
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="９"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
-        </h:column> 
-
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="10"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
-        </h:column>         
             
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="11"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
-        </h:column>  
-
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="12"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
-        </h:column>  
-
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="１"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
-        </h:column>  
-
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="２"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
-        </h:column>  
-
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="３"/>
-            </f:facet>
-            <h:outputText value="#{inputControl.list()}"/>
-        </h:column>              -->
+            <h:column>
+            <h:outputText value="#{row.get(6)}"/>
+        </h:column> 
+            <h:column>
+            <h:outputText value="#{row.get(7)}"/>
+        </h:column> 
+            <h:column>
+            <h:outputText value="#{row.get(8)}"/>
+        </h:column> 
+            <h:column>
+            <h:outputText value="#{row.get(9)}"/>
+        </h:column> 
+            <h:column>
+            <h:outputText value="#{row.get(10)}"/>
+        </h:column> 
+            
+            <h:column>
+            <h:outputText value="#{row.get(11)}"/>
+        </h:column> 
+            <h:column>
+            <h:outputText value="#{row.get(12)}"/>
+        </h:column> 
         </h:dataTable>
         </h:form>
     </h:body>

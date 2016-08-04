@@ -17,8 +17,8 @@ import model.MasterModel;
 public class Db {
     @PersistenceContext
     private EntityManager em;
-    private static final String QUERY_NAME = "SELECT c.name from MasterModel c WHERE c.inputCheck = 1 ORDER BY c.name desc";
-    private static final String QUERY_PCNAME = "SELECT concat(c.name, '：' , c.pcName) from MasterModel c ORDER BY c.name desc";
+    private static final String QUERY_NAME = "SELECT c.familyName from MasterModel c WHERE c.inputCheck = 1 ORDER BY c.familyName desc";
+    private static final String QUERY_PCNAME = "SELECT concat(c.familyName, '：' , c.pcName) from MasterModel c ORDER BY c.familyName desc";
 
     public void create(InputModel input) {
         em.persist(input);
@@ -30,7 +30,7 @@ public class Db {
     
     
     public List<MasterModel> getAll() {
-        return em.createQuery("SELECT c FROM MasterModel c order by c.name desc").getResultList();
+        return em.createQuery("SELECT c FROM MasterModel c order by c.familyName desc").getResultList();
     }
     
     public List<MasterModel> getNameAll() {
@@ -44,14 +44,14 @@ public class Db {
     }
 
     public List<InputModel> getInputAll() {
-        return em.createQuery("SELECT i FROM InputModel i order by i.Name desc")
+        return em.createQuery("SELECT i FROM InputModel i order by i.FamilyName desc")
                 .getResultList();
     }
-    
-    public List<InputModel> getList() {
-        return em.createQuery("select m.name, i.pcname, i.recodetime, i.status from MasterModelr m left join tbl_input i on i.pcname = concat(m.name, '：' , m.pcName)  order by name desc")
-                .getResultList();
-    }
+//    
+//    public List<InputModel> getList() {
+//        return em.createQuery("select m.name, i.pcname, i.recodetime, i.status from MasterModelr m left join tbl_input i on i.pcname = concat(m.name, '：' , m.pcName)  order by name desc")
+//                .getResultList();
+//    }
     
     public void rogicDelete(int id) {
         MasterModel master = em.find(MasterModel.class, id);

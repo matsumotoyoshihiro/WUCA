@@ -3,6 +3,7 @@ package control;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import model.MasterModel;
 @RequestScoped
 public class InputControl {
     
-    private String Name;
+    private String FamilyName;
     private String PcName;    
     private String Status;
     private String Note; 
@@ -42,12 +43,12 @@ public class InputControl {
     } 
     
     
-    public String getName() {
-        return Name;
+    public String getFamilyName() {
+        return FamilyName;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setFamilyName(String FamilyName) {
+        this.FamilyName = FamilyName;
     }
 
     public String getStatus() {
@@ -75,7 +76,7 @@ public class InputControl {
     }         
         
     public void create() { 
-        InputModel input = new InputModel(Name, PcName, Status, Note);
+        InputModel input = new InputModel(FamilyName, PcName, Status, Note);
         try {
             db.create(input);
             clear();
@@ -85,7 +86,7 @@ public class InputControl {
     }
     
     public void clear() {
-        Name = null;
+        FamilyName = null;
         PcName = null;
         Status = null;
         Note = null;
@@ -139,127 +140,63 @@ public class InputControl {
         return month;
     }    
     
-//    public String list(String pcName, int month) {
-////        List<String> list = new ArrayList<String>();
-////        Date date = new Date();
-////        String forMonth = sdfMonth.format(date);
-////        int realMonth = Integer.parseInt(forMonth);      
-//        String status = null;  
-//
-//
-//        for(int k = 0; k < getInputAll().size(); k++) {
-//            InputModel inputAll = getInputAll().get(k);    
-//            Integer inputMonth = inputAll.getRecodeTime().getMonth();
-//            System.out.println(pcName +"="+ inputAll.getPcName());
-//            System.out.println(month +"="+ inputMonth);
-//            if(pcName.equals(inputAll.getPcName()) && month == inputMonth) {                
-////            if(m == inputMonth) {
-////                if (month == inputMonth) {
-//                    
-//                status = inputAll.getState();
-//                        
-//            } else {
-//                status = null;
-//            }
-//        }
-//        return status;
-//    }
-    
-    public List testList() {        
-        ArrayList<String> texts0=new ArrayList<String>();
-        texts0.add("あ");
-        texts0.add("い");
-        texts0.add("う");
-        texts0.add("え");
-        texts0.add("お");
+    public void monthMap(int i) {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         
-        ArrayList<String> texts1=new ArrayList<String>();
-        texts1.add("か");
-        texts1.add("き");
-        texts1.add("く");
-        texts1.add("け");
-        texts1.add("こ");
+        map.put(0, 4);
+        map.put(1, 5);
+        map.put(2, 6);
+        map.put(3, 7);
+        map.put(4, 8);
+        map.put(5, 9);
+        map.put(6, 10);
+        map.put(7, 11);
+        map.put(8, 12);
+        map.put(9, 1);
+        map.put(10, 2);
+        map.put(11, 3);
         
-        ArrayList<ArrayList<String>> textsList=new ArrayList<ArrayList<String>>();
-        textsList.add(texts0);
-        textsList.add(texts1);
-        
-        return texts0;
     }
     
-    public List testList2() {  
-        ArrayList<Integer> list=new ArrayList<Integer>();
-        int a[][] = new int[9][9];
-        for(int i=0; i<9; i++){
-            for(int j=0; j<9; j++) {
-                a[i][j] = (i+1)*(j+1);
-                list.add(a[i][j]);
-            }
-        }
-        return list;    
-    }
-    public static void main() 
-	  {
-		    System.out.println("九九の表");
-
-		    // 配列の宣言。
-		    int kuku[][] = new int[10][10];
-
-		    // 九九の結果を配列に保存。
-		    for( int i=1; i<=9; i++ ) {
-		      for( int j=1; j<=9; j++ ){
-		    	  kuku[i][j] = i * j;
-		      }
-		    }
-
-		    // 九九の結果を表示。
-		    for( int i=1; i<=9; i++ ) {
-		      for( int j=1; j<=9; j++ ) { 
-		    	  System.out.print(kuku[i][j] + " "); 
-		      }
-		      	  System.out.println(); 
-		    }
-	  }
-    
-    public List list(int month) {
-        List<String> list = new ArrayList<String>();
-        List<InputModel> listInput = new ArrayList<InputModel>();
+    public List list() {
+        List<List> list = new ArrayList<List>();
+        List <String> header = new ArrayList<String>();
         String status = null;
-        String m = String.valueOf(month);
-        String m1 = String.valueOf(month+1);
-//        for(int i = 0; i < 12; i++)  {
-//            Object month = month().get(i);
-        list.add("社員名＋PC名");
-        for(int mst = 0; mst < getPcNameAll().size(); mst++) {
-            MasterModel master = getAll().get(mst);
-            String mstPcName = master.getName() + "：" +master.getPcName();
-            list.add(mstPcName);
+        
+        //ヘッダーを一行目に配置
+        header.add("社員名＋PC名");
+        for (int i = 0; i < 12; i++) {
+            header.add(month().get(i).toString());
         }
-            list.add(m1);
-            
-            for(int j = 0; j < getInputAll().size(); j++) {
-                InputModel inputAll = getInputAll().get(j);
-                Object inputMonth = inputAll.getRecodeTime().getMonth();
-                String objInputMonth = inputMonth.toString();
-                String inpPcName = inputAll.getPcName();
-                
-                for(int k = 0; k < getAll().size(); k++) {
-                    MasterModel master = getAll().get(k);
-                    String mstPcName = master.getName() + "：" +master.getPcName();
-                    if (m.equals(objInputMonth) && mstPcName.equals(inpPcName)) {
-                        status = inputAll.getState();
-                    } else {
-                        status = "null";
+        list.add(header);
+        
+        //
+        for(int j = 0; j < getAll().size(); j++) {
+            List<String> listList = new ArrayList<String>();
+            MasterModel master = getAll().get(j);
+            String mstPcName = master.getFamilyName()+ "：" +master.getPcName();
+            listList.add(mstPcName);            
+                     
+             for(int k = 0; k < getInputAll().size(); k++) {
+                        InputModel inputAll = getInputAll().get(k);
+                        String inpPcName = inputAll.getPcName();       
+                        String inputMonth = sdfMonth.format(inputAll.getRecodeTime());
+                        Integer intInputMonth = Integer.parseInt(inputMonth);
+                        String strInputMonth = String.valueOf(intInputMonth);
+                for(int l = 0; l < 12; l++) {
+                    String strMonth = month().get(l).toString();
+                    status = null;
+                   
+                    
+                        if (strMonth.equals(strInputMonth) && mstPcName.equals(inpPcName)) {
+                            status = inputAll.getState();
+                        }
+                    listList.add(status);
                     }
-                    list.add(status);
-                }                
+                }
+            list.add(listList);                        
             }
-//        }
         return list;
-    }
-    
-    public List<InputModel> getlist() {
-        return db.getList();
     }
     
     public List list2() {

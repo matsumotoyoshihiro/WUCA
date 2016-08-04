@@ -21,7 +21,7 @@ public class InputModel implements Serializable {
     private int ID;
     
     @NotNull
-    private String Name;
+    private String FamilyName;
     
     @NotNull
     private String PcName;
@@ -36,9 +36,9 @@ public class InputModel implements Serializable {
     public InputModel() {
     }
 
-    public InputModel(String Name, String PcName, String Status, String Note) {
+    public InputModel(String FamilyName, String PcName, String Status, String Note) {
         
-        this.Name = Name;
+        this.FamilyName = FamilyName;
         this.PcName = PcName;
         this.Status = Status;
         this.Note = Note;
@@ -53,12 +53,12 @@ public class InputModel implements Serializable {
         this.ID = ID;
     }
 
-    public String getName() {
-        return Name;
+    public String getFamilyName() {
+        return FamilyName;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setFamilyName(String FamilyName) {
+        this.FamilyName = FamilyName;
     }
     
     public String getPcName() {
