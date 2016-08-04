@@ -48,7 +48,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td style="float: top"><h:commandButton value="入力画面" action="#{masterControl.chDisp()}" style="width: 100px; height: 30px; position: absolute"/></td>
+                    <td style="float: top"><h:commandButton value="入力画面" action="#{masterControl.chDisp()}" style="width: 100px; height: 30px;left: 590px; top: 15px; position: absolute"/></td>
                 </tr>
                 
                 
@@ -83,7 +83,7 @@
                     <td></td>
                     <td>　　　　　　　</td>
                     <td style=""><h:commandButton action="#{masterControl.next()}" value="登　録"
-                         style="width: 100px; height: 30px; position: absolute;"/></td>
+                         style="width: 100px; height: 30px;left: 590px; position: absolute;"/></td>
                     
                 </tr>
             </table>
@@ -107,14 +107,14 @@
                 <tr>
                     <td style="float: right"> <h:outputLabel value="新しい社員名 姓："/> </td>
                     <td><h:inputText value="#{masterControl.newFamilyName}" /> </td>
-                    <td style="float: right"><h:outputLabel value="名：" ></h:outputLabel></td>
+                    <td><h:outputLabel value="名：" /></td>
                     <td><h:inputText value="#{masterControl.newName}"/></td>
                 </tr>
                 
                 <tr>
                     <td style="float: right"> <h:outputLabel value="新しいPC名：" /> </td>
                     <td> <h:inputText value="#{masterControl.newPcName}" /> </td>
-                    <td style="width: 115px"></td>
+                    <td></td>
                     <td style="float: right"><h:commandButton action="#{masterControl.update()}" value="更新"  style="width: 100px; height: 30px"/></td>
                 </tr>
             
@@ -150,7 +150,7 @@
             <td style="float: right ; width: 550px">
                 <h1>一覧表(名前順)</h1>    
                 
-            <h:dataTable value="#{masterControl.all}"  var="row" border="1">
+            <h:dataTable value="#{masterControl.all}"  var="row" border="1" cellspacing="0" bodyrows="12">
                 
                 <h:column >
                     <f:facet name ="header">
