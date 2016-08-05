@@ -5,7 +5,6 @@
  */
 package control;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -18,8 +17,10 @@ import model.MasterModel;
 public class Db {
     @PersistenceContext
     private EntityManager em;
-    private static final String QUERY_NAME = "SELECT c.name from MasterModel c WHERE c.inputCheck = 1 ORDER BY c.name desc";
-    private static final String QUERY_PCNAME = "SELECT concat(c.name, '：' , c.pcName) from MasterModel c ORDER BY c.name desc";
+    private static final String QUERY_MST = "SELECT mst FROM MasterModel mst order by mst.familyName desc";
+    private static final String QUERY_MSTFAMNAME = "SELECT mst.familyName from MasterModel mst WHERE mst.inputCheck = 1 ORDER BY mst.familyName desc";
+    private static final String QUERY_MSTPCNAME = "SELECT concat(mst.familyName, '：' , mst.pcName) from MasterModel mst ORDER BY mst.familyName desc";
+    private static final String QUERY_INP = "SELECT inp FROM InputModel inp order by inp.FamilyName desc";
 
     public void create(InputModel input) {
         em.persist(input);
@@ -30,21 +31,23 @@ public class Db {
     }
     
     
-    public List<MasterModel> getAll() {
-        return em.createQuery("SELECT c FROM MasterModel c order by c.name desc").getResultList();
+    public List<MasterModel> getMstAll() {
+        return em.createQuery(QUERY_MST).getResultList();
     }
     
-    public List<MasterModel> getAllName() {
-        return em.createQuery(QUERY_NAME)
-                .getResultList();
+    public List<MasterModel> getMstFamNameAll() {
+        return em.createQuery(QUERY_MSTFAMNAME).getResultList();
     }
     
-    public List<MasterModel> getAllPcName() {
-        return em.createQuery(QUERY_PCNAME)
-                .getResultList();
+    public List<MasterModel> getMstPcNameAll() {
+        return em.createQuery(QUERY_MSTPCNAME).getResultList();
     }
 
-	public void rogicDelete(int id) {
+    public List<InputModel> getInputAll() {
+        return em.createQuery(QUERY_INP).getResultList();
+    }
+ 
+    public void rogicDelete(int id) {
         MasterModel master = em.find(MasterModel.class, id);
         master.setDeleteFlag(1);
     }
