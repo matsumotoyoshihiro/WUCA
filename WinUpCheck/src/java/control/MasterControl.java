@@ -70,9 +70,9 @@ public class MasterControl implements Serializable{
     public void checkSameName(String name) {
         //DBに登録されている全てのレコードを取得 (社員数やPCが増えたら全てのレコード取得は効率が悪い)
         //新しくWhereを含んだSQLのメソッドを作成するか悩む
-        List<MasterModel> dbRecod = db.getAll();
+        List<MasterModel> dbRecord = db.getAll();
 
-        for (MasterModel nameList : dbRecod) {
+        for (MasterModel nameList : dbRecord) {
             //登録しようとしている名前がすでにDBに登録されていないかチェック
             String fullName = nameList.getFamilyName() + " " +nameList.getName();
             if(nameList.getInputCheck() == 1 && name.equals(fullName)){
