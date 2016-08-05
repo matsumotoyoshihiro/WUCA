@@ -16,9 +16,28 @@
             }
         </style>
 
+
+        
+        
     </h:head>
     <h:body>
-        <!--<div><h1>マスタ登録</h1></div>-->
+        
+        <script type="text/javascript">
+        
+            function delCheck() {
+                     
+            if(window.confirm('本当に削除してもよろしいですか？')) {
+              
+                document.write("#{masterControl.dalete()}");    //OKのとき入力したレコードを論理削除
+                window.alert('削除しました');
+            }else {
+                window.alert('削除がキャンセルされました');
+            }
+        }
+    
+        </script>
+        
+        
         <h:form>
             <table style="height: 600px; width: 1500px">
                 <tr><td>
@@ -29,7 +48,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td style="float: top"><h:commandButton value="入力画面" action="#{masterControl.chDisp()}" style="width: 100px; height: 30px; position: absolute"/></td>
+                    <td style="float: top"><h:commandButton value="入力画面" action="#{masterControl.chDisp()}" style="width: 100px; height: 30px;left: 590px; top: 15px; position: absolute"/></td>
                 </tr>
                 
                 
@@ -46,7 +65,7 @@
                     <td><h:inputText value="#{masterControl.familyName}" /></td>
                     <td><h:outputLabel value="名:" /></td>
                     <td><h:inputText value="#{masterControl.name}" /></td>
-                    <td><h:selectBooleanCheckbox value="#{masterControl.checkBox}"/>入力者一覧に追加</td>
+                    <td></td>
                     
                 </tr>
             
@@ -63,8 +82,8 @@
                     <td></td>
                     <td></td>
                     <td>　　　　　　　</td>
-                    <td style=""><h:commandButton action="#{masterControl.next()}" value="登　録"
-                         style="width: 100px; height: 30px; position: absolute;"/></td>
+                    <td><h:commandButton action="#{masterControl.next()}" value="登　録"
+                         style="width: 100px; height: 30px;left: 590px; position: absolute;"/></td>
                     
                 </tr>
             </table>
@@ -86,17 +105,18 @@
                 </tr>
                 
                 <tr>
-                    <td style="float: right"> <h:outputLabel value="新しい社員名 （姓のみ）："/> </td>
-                    <td> <h:inputText value="#{masterControl.newFamilyName}" /> </td>
-                    <td></td>
-                    <td></td>
+                    <td style="float: right"> <h:outputLabel value="新しい社員名 姓："/> </td>
+                    <td><h:inputText value="#{masterControl.newFamilyName}" /> </td>
+                    <td><h:outputLabel value="名：" /></td>
+                    <td><h:inputText value="#{masterControl.newName}"/></td>
                 </tr>
                 
                 <tr>
                     <td style="float: right"> <h:outputLabel value="新しいPC名：" /> </td>
                     <td> <h:inputText value="#{masterControl.newPcName}" /> </td>
-                    <td style="width: 115px"></td>
-                    <td><h:commandButton action="#{masterControl.update()}" value="更新"  style="width: 100px; height: 30px"/></td>
+                    <td></td>
+                    <td></td>
+                    <td><h:commandButton action="#{masterControl.update()}" value="更新"  style="width: 100px; height: 30px;left: 590px; position: absolute;"/></td>
                 </tr>
             
             </table>
@@ -113,10 +133,10 @@
                 
                 <tr style="height: 50px">
                     <td><h:outputLabel value="削除したいID："/> </td>
-                    <td><h:inputText value="#{masterControl.deleteID}"/> </td>
+                    <td><h:inputText  value="#{masterControl.deleteID}"/> </td>
                     <td></td>
                     <td></td>
-                    <td style="float: top"><h:commandButton action="#{masterControl.dalete()}" value="削除"  style="width: 100px; height: 30px"/></td>
+                    <td style="float: top"><h:commandButton  onclick="delCheck()" value="削除"  style="width: 100px; height: 30px"/></td>
                     
                 </tr>
                 
@@ -129,9 +149,9 @@
                     
             <td style="width: 100px"></td>
             <td style="float: right ; width: 550px">
-                <h1>一覧表</h1>    
+                <h1>一覧表(名前順)</h1>    
                 
-            <h:dataTable value="#{masterControl.all}"  var="row" border="1">
+            <h:dataTable value="#{masterControl.all}"  var="row" border="1" cellspacing="0" bodyrows="12">
                 
                 <h:column >
                     <f:facet name ="header">

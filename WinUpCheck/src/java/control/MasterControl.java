@@ -28,26 +28,23 @@ public class MasterControl implements Serializable{
     private String familyName;
     private String name;
     private String pcName;
-    private int inputCheck;
-    private boolean checkBox;    //HTMLからはString型で取得するため、一度こちらで受け取る
+    private int inputCheck = 1;     //デフォルトで入力者に追加するように設定
     
     private String updateID;
     private String newFamilyName;
+    private String newName;
     private String newPcName;
     
-    private String deleteID;
+    private String deleteID;  //画面遷移した際に、初期値としてNULLが入ってくるため
         
     
     
-    //どこのDBに接続するかの宣言？
-//    @EJB
-//    MasterDb db;
+    //どこのDBに接続するかの
     @EJB
     Db db;
     
    
     public String next() {
-        isSelect();
         create();
         return null;
     }
@@ -71,17 +68,15 @@ public class MasterControl implements Serializable{
     
     //同姓同名チェック
     public void checkSameName(String name) {
-        //入力者追加のチェックボックスにチェックが付いているか判断
-        if(inputCheck == 1) {
-            //DBに登録されている全てのレコードを取得 (社員数やPCが増えたら全てのレコード取得は効率が悪い)
-            List<MasterModel> dbRecod = db.getAll();
-          
-            for (MasterModel nameList : dbRecod) {
-                //登録しようとしている名前がすでにDBに登録されていないかチェック
-                String fullName = nameList.getFamilyName() + " " +nameList.getName();
-                if(nameList.getInputCheck() == 1 && name.equals(fullName)){
-                    inputCheck = 0;
-                }
+        //DBに登録されている全てのレコードを取得 (社員数やPCが増えたら全てのレコード取得は効率が悪い)
+        //新しくWhereを含んだSQLのメソッドを作成するか悩む
+        List<MasterModel> dbRecord = db.getAll();
+
+        for (MasterModel nameList : dbRecord) {
+            //登録しようとしている名前がすでにDBに登録されていないかチェック
+            String fullName = nameList.getFamilyName() + " " +nameList.getName();
+            if(nameList.getInputCheck() == 1 && name.equals(fullName)){
+                inputCheck = 0;
             }
         }
     }
@@ -89,30 +84,41 @@ public class MasterControl implements Serializable{
     
     //社員名・PC名の変更
     public String update() {
-        int id = Integer.parseInt(updateID);
-        
-        if(newFamilyName.length() > 0) {
-            db.nameUpdate(id, newFamilyName);
+        if(updateID != null) {
+            int id = Integer.parseInt(updateID);
+
+            if(newFamilyName.length() > 0) {
+                db.familyNameUpdate(id, newFamilyName);
+            }
+
+            if(newName.length() > 0) {
+                db.nameUpdate(id, newName);
+            }
+
+            if(newPcName.length() > 0) {
+                db.pcNameUpdate(id, newPcName);
+            }
+            clear();
         }
-        if(newPcName.length() > 0) {
-            db.pcNameUpdate(id, newPcName);
-        }
-        clear();
         return null;
+        
     }
 
     //レコードの論理削除(表示させないようにする)
-    public String dalete() {
-        int id = Integer.parseInt(deleteID);
-        db.rogicDelete(id);
-        clear();
-        return null;
+    public void dalete() {
+        //入力値がNULLの場合の対処
+        if(deleteID != null) {
+            Integer id = Integer.parseInt(deleteID);
+            db.rogicDelete(id);
+            clear();
+        }
     }
     
     //各入力項目のクリア
     public void clear() {
-        familyName = name= null;
-        pcName = null;
+        familyName = name = null;
+        newFamilyName = newName = null;
+        pcName = newPcName = null;
         updateID = deleteID = null; 
         
         
@@ -131,14 +137,14 @@ public class MasterControl implements Serializable{
     
 
     //boolean型からint型に変換
-    public String isSelect() {
-        if(checkBox) {
-            inputCheck = 1;
-        }else {
-            inputCheck = 0;
-        }
-        return null;   
-    }
+//    public String isSelect() {
+//        if(checkBox) {
+//            inputCheck = 1;
+//        }else {
+//            inputCheck = 0;
+//        }
+//        return null;   
+//    }
 
     //
     //以下のメソッドは各入力項目やボタン等のゲッターセッター
@@ -176,13 +182,13 @@ public class MasterControl implements Serializable{
         this.inputCheck = inputCheck;
     }
     
-    public boolean getCheckBox() {
-        return checkBox;
-    }
-
-    public void setCheckBox(boolean checkBox) {
-        this.checkBox = checkBox;
-    }
+//    public boolean getCheckBox() {
+//        return checkBox;
+//    }
+//
+//    public void setCheckBox(boolean checkBox) {
+//        this.checkBox = checkBox;
+//    }
 
     public String getUpdateID() {
         return updateID;
@@ -200,6 +206,14 @@ public class MasterControl implements Serializable{
         this.newFamilyName = newFamilyName;
     }
 
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
+    
     public String getNewPcName() {
         return newPcName;
     }
