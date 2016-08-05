@@ -17,8 +17,10 @@ import model.MasterModel;
 public class Db {
     @PersistenceContext
     private EntityManager em;
-    private static final String QUERY_NAME = "SELECT c.familyName from MasterModel c WHERE c.inputCheck = 1 ORDER BY c.familyName desc";
-    private static final String QUERY_PCNAME = "SELECT concat(c.familyName, '：' , c.pcName) from MasterModel c ORDER BY c.familyName desc";
+    private static final String QUERY_MST = "SELECT mst FROM MasterModel mst order by mst.familyName desc";
+    private static final String QUERY_MSTFAMNAME = "SELECT mst.familyName from MasterModel mst WHERE mst.inputCheck = 1 ORDER BY mst.familyName desc";
+    private static final String QUERY_MSTPCNAME = "SELECT concat(mst.familyName, '：' , mst.pcName) from MasterModel mst ORDER BY mst.familyName desc";
+    private static final String QUERY_INP = "SELECT inp FROM InputModel inp order by inp.FamilyName desc";
 
     public void create(InputModel input) {
         em.persist(input);
@@ -29,30 +31,22 @@ public class Db {
     }
     
     
-    public List<MasterModel> getAll() {
-        return em.createQuery("SELECT c FROM MasterModel c order by c.familyName desc").getResultList();
+    public List<MasterModel> getMstAll() {
+        return em.createQuery(QUERY_MST).getResultList();
     }
     
-    public List<MasterModel> getNameAll() {
-        return em.createQuery(QUERY_NAME)
-                .getResultList();
+    public List<MasterModel> getMstFamNameAll() {
+        return em.createQuery(QUERY_MSTFAMNAME).getResultList();
     }
     
-    public List<MasterModel> getPcNameAll() {
-        return em.createQuery(QUERY_PCNAME)
-                .getResultList();
+    public List<MasterModel> getMstPcNameAll() {
+        return em.createQuery(QUERY_MSTPCNAME).getResultList();
     }
 
     public List<InputModel> getInputAll() {
-        return em.createQuery("SELECT i FROM InputModel i order by i.FamilyName desc")
-                .getResultList();
+        return em.createQuery(QUERY_INP).getResultList();
     }
-//    
-//    public List<InputModel> getList() {
-//        return em.createQuery("select m.name, i.pcname, i.recodetime, i.status from MasterModelr m left join tbl_input i on i.pcname = concat(m.name, '：' , m.pcName)  order by name desc")
-//                .getResultList();
-//    }
-    
+ 
     public void rogicDelete(int id) {
         MasterModel master = em.find(MasterModel.class, id);
         master.setDeleteFlag(1);

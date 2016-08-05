@@ -14,6 +14,10 @@
             h1 {
                 font-size: 1.5em;
             }
+            td.list {
+                width: 50px
+                
+            }
         </style>        
     </h:head>
     <h:body>
@@ -32,7 +36,7 @@
                 <td align="right">入力者：</td>
                 <td>
                     <h:selectOneRadio value="#{inputControl.familyName}" label="入力者">
-                        <f:selectItems value="#{inputControl.nameAll}"/>
+                        <f:selectItems value="#{inputControl.mstFamNameAll}"/>
                     </h:selectOneRadio>
                 </td>
             </tr>
@@ -41,7 +45,7 @@
                 <td align="right">PC名：</td>
                 <td>
                     <h:selectOneListbox value="#{inputControl.pcName}" size="1" label="PC名">
-                        <f:selectItems value="#{inputControl.pcNameAll}" />
+                        <f:selectItems value="#{inputControl.mstPcNameAll}" />
                     </h:selectOneListbox>
                 </td>
             </tr>
@@ -72,60 +76,62 @@
         <br></br>
         <br></br>
 
-        <h:dataTable value="#{inputControl.list()}" var="row"  border="1" cellspacing="0" bodyrows="12" width="600">
-        <f:facet name="caption">
-            <h:outputText value="#{inputControl.strYear}年度　WindowsUpdate状況一覧"></h:outputText>
-        </f:facet>
+        <h:dataTable value="#{inputControl.updateList()}" var="row"  border="1" cellspacing="0" bodyrows="12" width="600">
+            <f:facet name="caption">
+                <h:outputText value="#{inputControl.strYear}年度　WindowsUpdate状況一覧"></h:outputText>
+            </f:facet>
         
-        <h:column>
-            <h:outputText value="#{row.get(0)}"/>
-        </h:column>
+            <h:column>
+                <h:outputText value="#{row.get(0)}"/>
+            </h:column>
         
-        <h:column>
-<!--            <f:facet name="header">
-                <h:outputText value="４"/>
-        </f:facet>-->
-            <h:outputText value="#{row.get(1)}"/>
-        </h:column>    
+            <h:column>
+                <h:outputText value="#{row.get(1)}" id="list"/>
+            </h:column>    
             
-        <h:column>
-            <h:outputText value="#{row.get(2)}"/>
-        </h:column> 
+            <h:column>
+                <h:outputText value="#{row.get(2)}"/>
+            </h:column> 
           
-        <h:column>
-            <h:outputText value="#{row.get(3)}"/>
-        </h:column> 
+            <h:column>
+                <h:outputText value="#{row.get(3)}"/>
+            </h:column> 
             
             <h:column>
-            <h:outputText value="#{row.get(4)}"/>
-        </h:column> 
+                <h:outputText value="#{row.get(4)}"/>
+            </h:column> 
             
             <h:column>
-            <h:outputText value="#{row.get(5)}"/>
-        </h:column> 
+                <h:outputText value="#{row.get(5)}"/>
+            </h:column> 
             
             <h:column>
-            <h:outputText value="#{row.get(6)}"/>
-        </h:column> 
-            <h:column>
-            <h:outputText value="#{row.get(7)}"/>
-        </h:column> 
-            <h:column>
-            <h:outputText value="#{row.get(8)}"/>
-        </h:column> 
-            <h:column>
-            <h:outputText value="#{row.get(9)}"/>
-        </h:column> 
-            <h:column>
-            <h:outputText value="#{row.get(10)}"/>
-        </h:column> 
+                <h:outputText value="#{row.get(6)}"/>
+            </h:column> 
             
             <h:column>
-            <h:outputText value="#{row.get(11)}"/>
-        </h:column> 
+                <h:outputText value="#{row.get(7)}"/>
+            </h:column> 
+        
             <h:column>
-            <h:outputText value="#{row.get(12)}"/>
-        </h:column> 
+                <h:outputText value="#{row.get(8)}"/>
+            </h:column> 
+        
+            <h:column>
+                <h:outputText value="#{row.get(9)}"/>
+            </h:column> 
+        
+            <h:column>
+                <h:outputText value="#{row.get(10)}"/>
+            </h:column> 
+            
+            <h:column>
+                <h:outputText value="#{row.get(11)}"/>
+            </h:column> 
+        
+            <h:column>
+                <h:outputText value="#{row.get(12)}"/>
+            </h:column> 
         </h:dataTable>
         </h:form>
     </h:body>
