@@ -112,6 +112,10 @@ public class InputControl {
     public List<InputModel> getInputAll() {
         return db.getInputAll();
     }
+
+    public List<InputModel> getInputList() {
+        return db.getInputList();
+    }    
     
     //年度
     public String getStrYear() {
@@ -137,8 +141,8 @@ public class InputControl {
         //ヘッダーの作成
         List<String> haeder = new ArrayList<>();
         List<MasterModel> masterAll = getMstAll();
-        List<InputModel> inputAll = getInputAll();
-         
+        List<InputModel> inputAll = getInputAll();         
+        
         haeder.add("社員名：PC名");
         for(int i = 1; i <= yearMap.size(); i++) {
             haeder.add(yearMap.get(String.valueOf(i)));
@@ -149,16 +153,16 @@ public class InputControl {
                          
         for (int i = 0; i < masterAll.size(); i++) {
             //各社員の情報をリスト化
-            List<String> empList = new ArrayList<>();            
+            List<String> empList = new ArrayList<>();
             //マスターテーブルを1行ずつ取得
             MasterModel masterRecoed = masterAll.get(i);
             //社員名：PC名の追加
             String emp = masterRecoed.getFamilyName()+ "：" + masterRecoed.getPcName();
              
-            empList.add(emp);             
+            empList.add(emp);
             //一度リストに値を全て入れる
             for(int j = 1; j <= yearMap.size(); j++) {
-                empList.add("");
+                empList.add(null);
             }
              
             //ここから下はaddではなくアップデート             
@@ -173,13 +177,13 @@ public class InputControl {
                     //どの月かをチェックする
                     //まずはデータ加工(月だけ取得)
                     String updateMonth = new SimpleDateFormat("M").format(inputRecord.getRecodeTime());
-                     
+                                        
                     for(int k = 1; k <= yearMap.size(); k++) {
                         if(updateMonth.equals(yearMap.get(String.valueOf(k)))) {
                             if(inputRecord.getState() != null) {
                                 empList.set(k, inputRecord.getState());
                             }else {
-                                empList.set(k, "　");
+                                empList.set(k, null);
                             }
                         }
                     }
@@ -190,7 +194,7 @@ public class InputControl {
         }            
         return updateList;
     }
-     
+    
     //4月始まりの月カレンダー
     private void createYearMap() {
         yearMap.put("1", "4");
@@ -206,4 +210,7 @@ public class InputControl {
         yearMap.put("11", "2");
         yearMap.put("12", "3");
     }
+    
+    static ArrayList<InputModel> arrayStr = new ArrayList<InputModel>();
+//    public
 }

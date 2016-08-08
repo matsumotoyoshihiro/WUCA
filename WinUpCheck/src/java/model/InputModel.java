@@ -37,13 +37,17 @@ public class InputModel implements Serializable {
     }
 
     public InputModel(String FamilyName, String PcName, String Status, String Note) {
-        
         this.FamilyName = FamilyName;
         this.PcName = PcName;
         this.Status = Status;
         this.Note = Note;
         this.RecodeTime = new Date();
     }    
+    
+    public InputModel(String Status, String Note) {
+        this.Status = Status;
+        this.Note = Note;
+    }      
     
     public int getID() {
         return ID;

@@ -29,6 +29,9 @@
             .color {
                 background-color: #d0ffdd; 
             }
+            datalist.list1 td:hover {
+                background-color: #CCFFFF;    /* マウスオーバー時のセルの背景色 */
+            }
         </style>        
     </h:head>
     <h:body>
@@ -89,17 +92,20 @@
 
         <h:dataTable value="#{inputControl.updateList()}" var="row"  border="1" cellspacing="0" bodyrows="12"
                      columnClasses="pcName, list, list, list, list, list, list, list, list, list, list, list, list"
-                     rowClasses=", color" onmouseover="#{row.get(0)}">
+                     rowClasses=", color">
             <f:facet name="caption">
                 <h:outputText value="#{inputControl.strYear}年度　WindowsUpdate状況一覧"></h:outputText>
             </f:facet>
         
+            <!--社員名：PC名-->
             <h:column>
                 <h:outputText value="#{row.get(0)}"/>
             </h:column>
         
+            <!--以下、４月～翌年３月-->
             <h:column>
-                <h:outputText value="#{row.get(1)}"/>
+
+                <h:outputText value="#{row.get(1)}" title="aaaa"/>
             </h:column>    
             
             <h:column>
@@ -115,15 +121,15 @@
             </h:column> 
             
             <h:column>
-                <h:outputText value="#{row.get(5)}"/>
+                <h:outputText value="#{row.get(5)}" title="#{row.get(5)}"/>
             </h:column> 
             
             <h:column>
-                <h:outputFormat value="#{row.get(6)}"/>
+                <h:outputText value="#{row.get(6)}"/>
             </h:column> 
             
             <h:column>
-                <h:outputFormat value="#{row.get(7)}"/>
+                <h:outputText value="#{row.get(7)}"/>
             </h:column> 
         
             <h:column>
@@ -131,21 +137,21 @@
             </h:column> 
         
             <h:column>
-                <h:outputFormat value="#{row.get(9)}"/>
+                <h:outputText value="#{row.get(9)}"/>
             </h:column> 
         
             <h:column>
-                <h:outputFormat value="#{row.get(10)}"/>
+                <h:outputText value="#{row.get(10)}"/>
             </h:column> 
             
             <h:column>
-                <h:outputFormat value="#{row.get(11)}"/>
+                <h:outputText value="#{row.get(11)}"/>
             </h:column> 
         
             <h:column>
-                <h:outputFormat value="#{row.get(12)}"/>
+                <h:outputText value="#{row.get(12)}"/>
             </h:column> 
-        </h:dataTable>
+            </h:dataTable>
         </h:form>
     </h:body>
 </html>
