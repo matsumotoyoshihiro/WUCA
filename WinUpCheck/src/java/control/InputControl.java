@@ -95,7 +95,7 @@ public class InputControl {
     
     public void create() { 
         InputModel input = new InputModel(FamilyName, PcName, Status, Note);
-        if(!FamilyName.equals("") && FamilyName != null) {
+        if(FamilyName != null) {
             try {
                 db.create(input);
                 clear();
