@@ -13,15 +13,21 @@
             }
             h1 {
                 font-size: 1.5em;
+            }            
+            .pcName {
+                width: 200px;
             }
-            td.list {
-                width: 50px
-                
+            .list {
+                width: 36px;
+                text-align: center;
             }
-        </style>        
+            .color {
+                background-color: #d0ffdd; 
+            }
+        </style>
     </h:head>
-    <h:body>
-        <h:form>
+    <h:body>                
+        <h:form id="myForm">
         <table>
             <td><h1>WindowsUpdateチェック</h1></td>
             <td align="right">
@@ -35,12 +41,12 @@
             <tr>
                 <td align="right">入力者：</td>
                 <td>
-                    <h:selectOneRadio value="#{inputControl.familyName}" label="入力者">
+                    <h:selectOneRadio value="#{inputControl.familyName}" label="入力者" id="familyNameField">
                         <f:selectItems value="#{inputControl.mstFamNameAll}"/>
                     </h:selectOneRadio>
+                    <h:message for="familyNameField" style="color: #ff0000;"/>                                                                
                 </td>
-            </tr>
-            
+            </tr>            
             <tr>
                 <td align="right">PC名：</td>
                 <td>
@@ -48,6 +54,16 @@
                         <f:selectItems value="#{inputControl.mstPcNameAll}" />
                     </h:selectOneListbox>
                 </td>
+<!--                <td>
+                    <h:selectOneListbox value="#{inputControl.pcName}" size="5" label="PC名">
+                        <f:selectItems value="#{inputControl.mstPcNameAll}" />
+                    </h:selectOneListbox>
+                </td>
+                <td>
+                    <h:selectManyListbox value="#{inputControl.pcName}" size="5" label="PC名">
+                        <f:selectItems value="#{inputControl.mstPcNameAll}" />
+                    </h:selectManyListbox>
+                </td>-->
             </tr>
             
             <tr>
@@ -62,75 +78,79 @@
             <tr>
                 <td align="right">備考：</td>
                 <td>
-                    <h:inputTextarea value="#{inputControl.note}" cols="80" rows="5" label="備考"/>
+                    <h:inputTextarea value="#{inputControl.note}" cols="77" rows="5" label="備考"/>
                 </td>
             </tr>
             
             <tr>
                 <td>
                     <h:commandButton style="width: 100px; height: 30px; position: absolute; left: 590px;" value="更新" action="#{inputControl.create()}"/>
-                </td>                
+                </td>
             </tr>
         </table>
         <br></br>
         <br></br>
         <br></br>
 
-        <h:dataTable value="#{inputControl.updateList()}" var="row"  border="1" cellspacing="0" bodyrows="12" width="600">
+        <h:dataTable value="#{inputControl.updateList()}" var="row"  border="1" cellspacing="0" bodyrows="12"
+                     columnClasses="pcName, list, list, list, list, list, list, list, list, list, list, list, list"
+                     rowClasses=", color">
             <f:facet name="caption">
                 <h:outputText value="#{inputControl.strYear}年度　WindowsUpdate状況一覧"></h:outputText>
             </f:facet>
         
+            <!--社員名：PC名-->
             <h:column>
-                <h:outputText value="#{row.get(0)}"/>
+                <h:outputText value="#{row.get(0)[0]}"/>
             </h:column>
         
+            <!--以下、４月～翌年３月-->
             <h:column>
-                <h:outputText value="#{row.get(1)}" id="list"/>
+                <h:outputText value="#{row.get(1)[0]}" title="#{row.get(1)[1]}"/>
             </h:column>    
             
             <h:column>
-                <h:outputText value="#{row.get(2)}"/>
+                <h:outputText value="#{row.get(2)[0]}" title="#{row.get(2)[1]}"/>
             </h:column> 
           
             <h:column>
-                <h:outputText value="#{row.get(3)}"/>
+                <h:outputText value="#{row.get(3)[0]}" title="#{row.get(3)[1]}"/>
             </h:column> 
             
             <h:column>
-                <h:outputText value="#{row.get(4)}"/>
+                <h:outputText value="#{row.get(4)[0]}" title="#{row.get(4)[1]}"/>
             </h:column> 
             
             <h:column>
-                <h:outputText value="#{row.get(5)}"/>
+                <h:outputText value="#{row.get(5)[0]}" title="#{row.get(5)[1]}"/>
             </h:column> 
             
             <h:column>
-                <h:outputText value="#{row.get(6)}"/>
+                <h:outputText value="#{row.get(6)[0]}" title="#{row.get(6)[1]}"/>
             </h:column> 
             
             <h:column>
-                <h:outputText value="#{row.get(7)}"/>
+                <h:outputText value="#{row.get(7)[0]}" title="#{row.get(7)[1]}"/>
             </h:column> 
         
             <h:column>
-                <h:outputText value="#{row.get(8)}"/>
+                <h:outputText value="#{row.get(8)[0]}" title="#{row.get(8)[1]}"/>
             </h:column> 
         
             <h:column>
-                <h:outputText value="#{row.get(9)}"/>
+                <h:outputText value="#{row.get(9)[0]}" title="#{row.get(9)[1]}"/>
             </h:column> 
         
             <h:column>
-                <h:outputText value="#{row.get(10)}"/>
+                <h:outputText value="#{row.get(10)[0]}" title="#{row.get(10)[1]}"/>
             </h:column> 
             
             <h:column>
-                <h:outputText value="#{row.get(11)}"/>
+                <h:outputText value="#{row.get(11)[0]}" title="#{row.get(11)[1]}"/>
             </h:column> 
         
             <h:column>
-                <h:outputText value="#{row.get(12)}"/>
+                <h:outputText value="#{row.get(12)[0]}" title="#{row.get(12)[1]}"/>
             </h:column> 
         </h:dataTable>
         </h:form>

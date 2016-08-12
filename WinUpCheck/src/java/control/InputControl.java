@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import model.InputModel;
 import model.MasterModel;
-//import model.MasterModel;
 
 @Named
 @RequestScoped
@@ -25,24 +27,11 @@ public class InputControl {
     private String strYear;        
     SimpleDateFormat sdfYear = new SimpleDateFormat("YYYY");         
     SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");
+    private static Map<String, String> itemStatus;    
     private Map<String, String> yearMap = new HashMap<>();    
     
     @EJB
-    Db db;
-
-    private static Map<String, String> itemStatus;
-    
-    static {
-        itemStatus = new LinkedHashMap<>();
-        itemStatus.put("◯", "◯");
-        itemStatus.put("※", "※");
-        itemStatus.put("", null);
-    }              
-
-    public Map<String, String> getItemStatus() {
-        return itemStatus;
-    } 
-    
+    Db db;            
     
     public String getFamilyName() {
         return FamilyName;
@@ -70,32 +59,7 @@ public class InputControl {
 
     public String getNote() {
         return Note;
-    }
-
-    public void setNote(String Note) {
-        this.Note = Note;
-    }         
-        
-    public void create() { 
-        InputModel input = new InputModel(FamilyName, PcName, Status, Note);
-        try {
-            db.create(input);
-            clear();
-        } catch (Exception e) {
-            System.out.println("DB登録できていません");
-        }                
-    }
-    
-    public void clear() {
-        FamilyName = null;
-        PcName = null;
-        Status = null;
-        Note = null;
-    }
-
-    public String masterDisp() {
-        return "master";
-    }        
+    }       
     
     public List<MasterModel> getMstAll() {
         return db.getMstAll();
@@ -112,7 +76,48 @@ public class InputControl {
     public List<InputModel> getInputAll() {
         return db.getInputAll();
     }
+
+    public List<InputModel> getInputNoteList() {
+        return db.getInputNoteList();
+    }    
     
+    public List<InputModel> getInputTimeList() {
+        return db.getInputTimeList();
+    }      
+    
+    public void setNote(String Note) {
+        this.Note = Note;
+    }         
+        
+    public String masterDisp() {
+        return "master";
+    }  
+    
+    public void create() { 
+        InputModel input = new InputModel(FamilyName, PcName, Status, Note);
+        if(!FamilyName.equals("") && FamilyName != null) {
+            try {
+                db.create(input);
+                clear();
+            } catch (Exception e) {
+                System.out.println("DB登録できませんでした。");
+            }                        
+        } else {
+            FacesContext context = FacesContext.getCurrentInstance();
+            UIComponent component = context.getViewRoot().findComponent("myForm:familyNameField");            
+            String clientId = component.getClientId(context);
+            FacesMessage message = new FacesMessage("※入力者が未選択です。");
+            context.addMessage(clientId, message);
+        }
+    }  
+    
+    public void clear() {
+        FamilyName = null;
+        PcName = null;
+        Status = null;
+        Note = null;
+    }
+   
     //年度
     public String getStrYear() {
         Date date = new Date();
@@ -134,14 +139,20 @@ public class InputControl {
          
         //viewに送るリスト
         List<List> updateList = new ArrayList<>();
+        String[] data = new String[2];
+        
         //ヘッダーの作成
-        List<String> haeder = new ArrayList<>();
+        List<String[]> haeder = new ArrayList<>();
         List<MasterModel> masterAll = getMstAll();
-        List<InputModel> inputAll = getInputAll();
-         
-        haeder.add("社員名：PC名");
+        List<InputModel> inputTime = getInputTimeList();
+        data[0] = "社員名：PC名";
+        data[1] = null;
+        
+        haeder.add(data.clone());
         for(int i = 1; i <= yearMap.size(); i++) {
-            haeder.add(yearMap.get(String.valueOf(i)));
+            data[0] = yearMap.get(String.valueOf(i));
+            data[1] = null;
+            haeder.add(data.clone());
         }
          
         //ヘッダ用リスト作成
@@ -149,48 +160,72 @@ public class InputControl {
                          
         for (int i = 0; i < masterAll.size(); i++) {
             //各社員の情報をリスト化
-            List<String> empList = new ArrayList<>();            
+            List<String> empList = new ArrayList<>();
+            List<String[]> empList2 = new ArrayList<>();
             //マスターテーブルを1行ずつ取得
             MasterModel masterRecoed = masterAll.get(i);
             //社員名：PC名の追加
+            data[0] = masterRecoed.getFamilyName()+ "：" + masterRecoed.getPcName();
+            data[1] = null;
+            
             String emp = masterRecoed.getFamilyName()+ "：" + masterRecoed.getPcName();
-             
-            empList.add(emp);             
+            
+            empList.add(emp);
+            empList2.add(data.clone());
+            
             //一度リストに値を全て入れる
             for(int j = 1; j <= yearMap.size(); j++) {
-                empList.add("");
+                data[0] = null;
+                data[1] = null;
+                empList2.add(data.clone());
             }
              
             //ここから下はaddではなくアップデート             
             //ここからは各月のステータス
-            for(int j = 0; j < inputAll.size(); j++) {
+            for(int j = 0; j < inputTime.size(); j++) {
                 //DBに登録されているインプットテーブルを取得
-                InputModel inputRecord = inputAll.get(j);
+                InputModel inputTime2 = inputTime.get(j);
                      
                 //取得した各テーブルの「名前：PC名」一致しているかチェック
-                if(emp.equals(inputRecord.getPcName())) {
+                if(emp.equals(inputTime2.getPcName())) {
                          
                     //どの月かをチェックする
                     //まずはデータ加工(月だけ取得)
-                    String updateMonth = new SimpleDateFormat("M").format(inputRecord.getRecodeTime());
-                     
+                    String updateMonth = new SimpleDateFormat("M").format(inputTime2.getRecodeTime());
+                                        
                     for(int k = 1; k <= yearMap.size(); k++) {
                         if(updateMonth.equals(yearMap.get(String.valueOf(k)))) {
-                            if(inputRecord.getState() != null) {
-                                empList.set(k, inputRecord.getState());
-                            }else {
-                                empList.set(k, "　");
+                            if(inputTime2.getState() != null) {
+                                data[0] = inputTime2.getState();
+                                data[1] = inputTime2.getNote();
+                                empList2.set(k, data.clone());
+                            } else {
+                                data[0] = null;
+                                data[1] = null;
+                                empList2.set(k, data.clone());
                             }
                         }
                     }
-                }            
+                }
             }
             //最後にこのリストを全体のリストに追加
-            updateList.add(empList);
-        }            
+            updateList.add(empList2);            
+        }                  
         return updateList;
-    }
-     
+    }                 
+
+    //DB登録時の値
+    static {
+        itemStatus = new LinkedHashMap<>();
+        itemStatus.put("◯", "◯");
+        itemStatus.put("※", "※");
+        itemStatus.put("", null);
+    }              
+
+    public Map<String, String> getItemStatus() {
+        return itemStatus;
+    } 
+    
     //4月始まりの月カレンダー
     private void createYearMap() {
         yearMap.put("1", "4");
@@ -206,4 +241,5 @@ public class InputControl {
         yearMap.put("11", "2");
         yearMap.put("12", "3");
     }
+    
 }

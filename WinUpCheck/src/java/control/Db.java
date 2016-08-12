@@ -17,10 +17,12 @@ import model.MasterModel;
 public class Db {
     @PersistenceContext
     private EntityManager em;
-    private static final String QUERY_MST = "SELECT mst FROM MasterModel mst order by mst.familyName desc";
+    private static final String QUERY_MST = "SELECT mst FROM MasterModel mst ORDER BY mst.familyName desc";
     private static final String QUERY_MSTFAMNAME = "SELECT mst.familyName from MasterModel mst WHERE mst.inputCheck = 1 ORDER BY mst.familyName desc";
     private static final String QUERY_MSTPCNAME = "SELECT concat(mst.familyName, '：' , mst.pcName) from MasterModel mst ORDER BY mst.familyName desc";
-    private static final String QUERY_INP = "SELECT inp FROM InputModel inp order by inp.FamilyName desc";
+    private static final String QUERY_INP = "SELECT inp FROM InputModel inp ORDER BY inp.FamilyName desc";
+    private static final String QUERY_INPNOTE = "SELECT inp.status, imp.note FROM InputModel inp ORDER BY inp.FamilyName desc";
+    private static final String QUERY_INPTIME = "SELECT inp FROM InputModel inp ORDER BY inp.RecodeTime";
 
     public void create(InputModel input) {
         em.persist(input);
@@ -46,6 +48,14 @@ public class Db {
     public List<InputModel> getInputAll() {
         return em.createQuery(QUERY_INP).getResultList();
     }
+    
+    public List<InputModel> getInputNoteList() {
+        return em.createQuery(QUERY_INPNOTE).getResultList();
+    }
+
+    public List<InputModel> getInputTimeList() {
+        return em.createQuery(QUERY_INPTIME).getResultList();
+    }     
  
     public void rogicDelete(int id) {
         MasterModel master = em.find(MasterModel.class, id);
