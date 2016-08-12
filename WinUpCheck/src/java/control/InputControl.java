@@ -13,7 +13,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.swing.JDialog;
 import model.InputModel;
 import model.MasterModel;
 
@@ -28,24 +27,11 @@ public class InputControl {
     private String strYear;        
     SimpleDateFormat sdfYear = new SimpleDateFormat("YYYY");         
     SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");
+    private static Map<String, String> itemStatus;    
     private Map<String, String> yearMap = new HashMap<>();    
     
     @EJB
-    Db db;
-
-    private static Map<String, String> itemStatus;
-    
-    static {
-        itemStatus = new LinkedHashMap<>();
-        itemStatus.put("◯", "◯");
-        itemStatus.put("※", "※");
-        itemStatus.put("", null);
-    }              
-
-    public Map<String, String> getItemStatus() {
-        return itemStatus;
-    } 
-    
+    Db db;            
     
     public String getFamilyName() {
         return FamilyName;
@@ -73,50 +59,7 @@ public class InputControl {
 
     public String getNote() {
         return Note;
-    }
-
-    public void setNote(String Note) {
-        this.Note = Note;
-    }         
-        
-    private JDialog dialog;
-    public void create() { 
-        InputModel input = new InputModel(FamilyName, PcName, Status, Note);
-        if(!FamilyName.equals("") && FamilyName != null) {
-            try {
-                db.create(input);
-                clear();
-            } catch (Exception e) {
-                System.out.println("DB登録できませんでした。");
-            }                        
-        } else {
-            FacesContext context = FacesContext.getCurrentInstance();
-            UIComponent component = context.getViewRoot().findComponent("myForm:familyNameField");            
-            String clientId = component.getClientId(context);
-            FacesMessage message = new FacesMessage("※入力者が未選択です。");
-            context.addMessage(clientId, message);
-        }
-    }
-    
-    public String test() { 
-        if(!"".equals(FamilyName) && FamilyName != null) {        
-            return "select";
-        } else {
-            return "notSelect";
-        }
-
-    }    
-    
-    public void clear() {
-        FamilyName = null;
-        PcName = null;
-        Status = null;
-        Note = null;
-    }
-
-    public String masterDisp() {
-        return "master";
-    }        
+    }       
     
     public List<MasterModel> getMstAll() {
         return db.getMstAll();
@@ -142,6 +85,39 @@ public class InputControl {
         return db.getInputTimeList();
     }      
     
+    public void setNote(String Note) {
+        this.Note = Note;
+    }         
+        
+    public String masterDisp() {
+        return "master";
+    }  
+    
+    public void create() { 
+        InputModel input = new InputModel(FamilyName, PcName, Status, Note);
+        if(!FamilyName.equals("") && FamilyName != null) {
+            try {
+                db.create(input);
+                clear();
+            } catch (Exception e) {
+                System.out.println("DB登録できませんでした。");
+            }                        
+        } else {
+            FacesContext context = FacesContext.getCurrentInstance();
+            UIComponent component = context.getViewRoot().findComponent("myForm:familyNameField");            
+            String clientId = component.getClientId(context);
+            FacesMessage message = new FacesMessage("※入力者が未選択です。");
+            context.addMessage(clientId, message);
+        }
+    }  
+    
+    public void clear() {
+        FamilyName = null;
+        PcName = null;
+        Status = null;
+        Note = null;
+    }
+   
     //年度
     public String getStrYear() {
         Date date = new Date();
@@ -236,7 +212,19 @@ public class InputControl {
             updateList.add(empList2);            
         }                  
         return updateList;
-    }
+    }                 
+
+    //DB登録時の値
+    static {
+        itemStatus = new LinkedHashMap<>();
+        itemStatus.put("◯", "◯");
+        itemStatus.put("※", "※");
+        itemStatus.put("", null);
+    }              
+
+    public Map<String, String> getItemStatus() {
+        return itemStatus;
+    } 
     
     //4月始まりの月カレンダー
     private void createYearMap() {
