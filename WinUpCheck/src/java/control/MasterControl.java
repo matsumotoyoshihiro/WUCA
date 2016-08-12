@@ -70,7 +70,7 @@ public class MasterControl implements Serializable{
     public void checkSameName(String name) {
         //DBに登録されている全てのレコードを取得 (社員数やPCが増えたら全てのレコード取得は効率が悪い)
         //新しくWhereを含んだSQLのメソッドを作成するか悩む
-        List<MasterModel> dbRecord = db.getAll();
+        List<MasterModel> dbRecord = db.getMstAll();
 
         for (MasterModel nameList : dbRecord) {
             //登録しようとしている名前がすでにDBに登録されていないかチェック
@@ -132,7 +132,7 @@ public class MasterControl implements Serializable{
    
     //DBから全てのデータを取得
     public List<MasterModel> getAll() {
-         return db.getAll();
+         return db.getMstAll();
     }
     
 

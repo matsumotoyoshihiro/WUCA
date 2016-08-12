@@ -61,8 +61,14 @@ public class Db {
         MasterModel master = em.find(MasterModel.class, id);
         master.setDeleteFlag(1);
     }
+    
+    public void familyNameUpdate(int id, String newFamilyName){
+        MasterModel master = em.find(MasterModel.class, id);
+        master.setFamilyName(newFamilyName);
+        master.setUpdateDate(new Date());
+    }
 
-	public void nameUpdate(int id, String newName){
+    public void nameUpdate(int id, String newName){
         MasterModel master = em.find(MasterModel.class, id);
         master.setName(newName);
         master.setUpdateDate(new Date());

@@ -25,6 +25,30 @@
                 background-color: #d0ffdd; 
             }
         </style>
+        
+        <script type="text/javascript">
+            
+        function getSelectStatus(obj,note) {
+            var text;
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value;
+            text = obj.options[idx].text;
+            console.log('idx = ' + idx);
+            console.log('value = ' + value);
+            console.log('text = ' + text);
+
+            if(text == "◯") {
+                document.getElementsByClassName(note)[0].disabled = true;
+            }else if(text == "※") {
+                document.getElementsByClassName(note)[0].disabled = false;
+            }
+                
+                
+               
+        }
+    
+        </script>
+        
     </h:head>
     <h:body>                
         <h:form id="myForm">
@@ -69,7 +93,7 @@
             <tr>
                 <td align="right">ステータス：</td>
                 <td>
-                    <h:selectOneListbox value="#{inputControl.status}" size="1" label="ステータス">
+                    <h:selectOneListbox onchange="getSelectStatus(this, 'note')" value="#{inputControl.status}" size="1" label="ステータス">
                         <f:selectItems value="#{inputControl.itemStatus}" />
                     </h:selectOneListbox>
                 </td>
@@ -78,7 +102,7 @@
             <tr>
                 <td align="right">備考：</td>
                 <td>
-                    <h:inputTextarea value="#{inputControl.note}" cols="77" rows="5" label="備考"/>
+                    <h:inputTextarea class="note" disabled="true" value="#{inputControl.note}" cols="77" rows="5" label="備考"/>
                 </td>
             </tr>
             
