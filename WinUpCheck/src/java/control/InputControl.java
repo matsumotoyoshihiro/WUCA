@@ -217,9 +217,10 @@ public class InputControl {
     //DB登録時の値
     static {
         itemStatus = new LinkedHashMap<>();
+        itemStatus.put("", null);
         itemStatus.put("◯", "◯");
         itemStatus.put("※", "※");
-        itemStatus.put("", null);
+        
     }              
 
     public Map<String, String> getItemStatus() {
