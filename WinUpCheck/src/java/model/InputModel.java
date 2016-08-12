@@ -19,17 +19,10 @@ public class InputModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ID;
-    
-    @NotNull
     private String FamilyName;
-    
-    @NotNull
     private String PcName;
-
     private String Status;
-    
     private String Note;
-    
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date RecodeTime;               
     
