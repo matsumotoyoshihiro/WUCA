@@ -22,7 +22,16 @@
     </h:head>
     <h:body>
         
-        <script type="text/javascript">
+        <script type="text/javascript" >
+            
+            //F5キーを無効化にする関数
+            window.document.onkeydown = function() {
+                if(event.keyCode == 116) {
+                    event.keyCode = null;
+                    return false;
+                }
+            }
+        
         
             function delCheck() {
                      
@@ -61,7 +70,7 @@
                 </tr>
                 
                 <tr>
-                    <td style="float: right"><h:outputLabel value="社員名　姓:"/></td>
+                    <td style="float: right"><h:outputLabel value="社員名　姓："/></td>
                     <td><h:inputText value="#{masterControl.familyName}" /></td>
                     <td><h:outputLabel value="名:" /></td>
                     <td><h:inputText value="#{masterControl.name}" /></td>
@@ -70,7 +79,7 @@
                 </tr>
             
                 <tr>
-                    <td style="float: right"><h:outputLabel value="PC名"/></td>
+                    <td style="float: right"><h:outputLabel value="PC名："/></td>
                     <td><h:inputText value="#{masterControl.pcName}" /></td>
                     <td></td>
                     <td></td>
