@@ -52,7 +52,7 @@ public class MasterControl implements Serializable{
     public String create() {
         //同じ人を入力者一覧に追加しないようにフルネームにする
         String fullName = familyName + " " + name;
-        checkSameName(fullName);
+//        checkSameName(fullName);
         
         MasterModel master = new MasterModel(familyName, name, pcName, inputCheck);
                 
@@ -63,7 +63,7 @@ public class MasterControl implements Serializable{
             System.out.println("新規登録失敗！！！！！");
         }
     
-        return null;
+        return "master?faces-redirect=true";
     }
     
     //同姓同名チェック
@@ -100,18 +100,19 @@ public class MasterControl implements Serializable{
             }
             clear();
         }
-        return null;
+        return "master?faces-redirect=true";
         
     }
 
     //レコードの論理削除(表示させないようにする)
-    public void dalete() {
+    public String dalete() {
         //入力値がNULLの場合の対処
         if(deleteID != null) {
             Integer id = Integer.parseInt(deleteID);
             db.rogicDelete(id);
             clear();
         }
+        return "master?faces-redirect=true";
     }
     
     //各入力項目のクリア
