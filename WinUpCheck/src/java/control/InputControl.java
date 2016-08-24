@@ -93,21 +93,26 @@ public class InputControl {
         return "master";
     }  
     
-    public void create() { 
+    public String create() { 
         InputModel input = new InputModel(FamilyName, PcName, Status, Note);
-        if(FamilyName != null) {
+        //何も入力せずに更新ボタンを押した場合
+        if(!FamilyName.equals("")) {
             try {
                 db.create(input);
                 clear();
             } catch (Exception e) {
                 System.out.println("DB登録できませんでした。");
-            }                        
-        } else {
+            }       
+            return "input?faces-redirect=true";
+        } else if(FamilyName.equals("")){
             FacesContext context = FacesContext.getCurrentInstance();
             UIComponent component = context.getViewRoot().findComponent("myForm:familyNameField");            
             String clientId = component.getClientId(context);
             FacesMessage message = new FacesMessage("※入力者が未選択です。");
             context.addMessage(clientId, message);
+            return null;
+        } else {
+            return null;
         }
     }  
     
@@ -216,10 +221,10 @@ public class InputControl {
 
     //DB登録時の値
     static {
-        itemStatus = new LinkedHashMap<>();
-        itemStatus.put("", null);
+        itemStatus = new LinkedHashMap<>();        
         itemStatus.put("◯", "◯");
         itemStatus.put("※", "※");
+        itemStatus.put("", null);
         
     }              
 
@@ -243,4 +248,32 @@ public class InputControl {
         yearMap.put("12", "3");
     }
     
+    //同姓同名チェック
+    public List inputName() {
+        List<MasterModel> famNameAll = getMstFamNameAll();
+        List<String> inputNameList = new ArrayList<>();
+        
+        int flag = 0;
+        
+        for (int i = 0; i < famNameAll.size(); i++) {
+            String masterRecoed = String.valueOf(famNameAll.get(i));
+            
+            if(i == 0) {
+                inputNameList.add(masterRecoed);                            
+            }
+            //登録しようとしている名前がすでにDBに登録されていないかチェック
+            for (int j = 0; j < inputNameList.size(); j++) {
+                flag = 1;
+                String inputRecord = inputNameList.get(j);
+                if(masterRecoed.equals(inputRecord)) {
+                    flag = 0;
+                    break;                  
+                }
+            }
+            if(flag == 1) {
+                inputNameList.add(masterRecoed);
+            }
+        }
+        return inputNameList;
+    }    
 }

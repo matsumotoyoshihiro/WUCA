@@ -17,8 +17,8 @@ import model.MasterModel;
 public class Db {
     @PersistenceContext
     private EntityManager em;
-    private static final String QUERY_MST = "SELECT mst FROM MasterModel mst ORDER BY mst.familyName desc";
-    private static final String QUERY_MSTFAMNAME = "SELECT mst.familyName from MasterModel mst WHERE mst.inputCheck = 1 ORDER BY mst.familyName desc";
+    private static final String QUERY_MST = "SELECT mst FROM MasterModel mst WHERE mst.deleteFlag = 0 ORDER BY mst.familyName desc";
+    private static final String QUERY_MSTFAMNAME = "SELECT mst.familyName from MasterModel mst WHERE mst.deleteFlag = 0 ORDER BY mst.familyName desc";
     private static final String QUERY_MSTPCNAME = "SELECT concat(mst.familyName, '：' , mst.pcName) from MasterModel mst ORDER BY mst.familyName desc";
     private static final String QUERY_INP = "SELECT inp FROM InputModel inp ORDER BY inp.FamilyName desc";
     private static final String QUERY_INPNOTE = "SELECT inp.status, imp.note FROM InputModel inp ORDER BY inp.FamilyName desc";
@@ -31,7 +31,6 @@ public class Db {
     public void createMaster(MasterModel masterModel) {
         em.persist(masterModel);
     }
-    
     
     public List<MasterModel> getMstAll() {
         return em.createQuery(QUERY_MST).getResultList();
