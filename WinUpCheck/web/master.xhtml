@@ -68,19 +68,19 @@
                             </tr>
                             
                             <tr>
-                                <td><h:outputLabel value="データ更新したいID：" style="float: right;"/> </td>
+                                <td><h:outputLabel value="更新ID：" style="float: right;"/> </td>
                                 <td><h:inputText value="#{masterControl.updateID}"/> </td>
                             </tr>
                         
                             <tr>
-                                <td> <h:outputLabel value="新しい社員名 姓：" style="float: right"/> </td>
+                                <td> <h:outputLabel value="社員名　姓：" style="float: right"/> </td>
                                 <td><h:inputText value="#{masterControl.newFamilyName}"/> </td>
                                 <td><h:outputLabel value="名：" style="float: right"/></td>
                                 <td><h:inputText value="#{masterControl.newName}" style="width: 190px;"/></td>
                             </tr>
                             
                             <tr>
-                                <td> <h:outputLabel value="新しいPC名：" style="float: right"/> </td>
+                                <td> <h:outputLabel value="PC名：" style="float: right"/> </td>
                                 <td> <h:inputText value="#{masterControl.newPcName}" /> </td>
                                 <td><h:commandButton action="#{masterControl.update()}" value="更新"
                                      style="width: 100px; height: 30px;left: 590px; position: absolute;"/></td>
@@ -96,7 +96,7 @@
                             </tr>
                             
                             <tr>
-                                <td><h:outputLabel value="削除したいID：" style="float: right"/> </td>
+                                <td><h:outputLabel value="削除ID：" style="float: right"/> </td>
                                 <td><h:inputText  value="#{masterControl.deleteID}"/> </td>
                                 <td><h:commandButton  onclick="#{masterControl.dalete()}" value="削除"
                                      style="width: 100px; height: 30px;left: 590px; position: absolute;"/></td>                    
@@ -104,8 +104,8 @@
                     </table>
                 </td>
                 <td style="width: 30px;"></td>
-                <td>
-                    <h1>一覧表(名前順)</h1>    
+                <td valign="top">
+                    <h1>一覧表</h1>    
                 
                     <h:dataTable value="#{masterControl.all}" var="row" border="1" cellspacing="0" bodyrows="12">
                 

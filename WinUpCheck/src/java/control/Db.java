@@ -19,7 +19,7 @@ public class Db {
     private EntityManager em;
     private static final String QUERY_MST = "SELECT mst FROM MasterModel mst WHERE mst.deleteFlag = 0 ORDER BY mst.familyName desc";
     private static final String QUERY_MSTFAMNAME = "SELECT mst.familyName from MasterModel mst WHERE mst.deleteFlag = 0 ORDER BY mst.familyName desc";
-    private static final String QUERY_MSTPCNAME = "SELECT concat(mst.familyName, '：' , mst.pcName) from MasterModel mst ORDER BY mst.familyName desc";
+    private static final String QUERY_MSTPCNAME = "SELECT concat(mst.familyName, '：' , mst.pcName) from MasterModel mst WHERE mst.deleteFlag = 0 ORDER BY mst.familyName desc";
     private static final String QUERY_INP = "SELECT inp FROM InputModel inp ORDER BY inp.FamilyName desc";
     private static final String QUERY_INPNOTE = "SELECT inp.status, imp.note FROM InputModel inp ORDER BY inp.FamilyName desc";
     private static final String QUERY_INPTIME = "SELECT inp FROM InputModel inp ORDER BY inp.RecodeTime";

@@ -20,41 +20,29 @@ import model.MasterModel;
 @Named
 @RequestScoped
 public class MasterControl implements Serializable{
-    
-    private MasterControl masterControl;
-    
+        
     //新規登録入力項目の値取得
     @NotNull
     private String familyName;
     private String name;
     private String pcName;
-    private int inputCheck = 1;     //デフォルトで入力者に追加するように設定
-    
     private String updateID;
     private String newFamilyName;
     private String newName;
     private String newPcName;
-    
     private String deleteID;  //画面遷移した際に、初期値としてNULLが入ってくるため
-        
-    
-    
+                
     //どこのDBに接続するかの
     @EJB
-    Db db;
-    
+    Db db;    
    
     public String next() {
         create();
         return null;
     }
     
-    public String create() {
-        //同じ人を入力者一覧に追加しないようにフルネームにする
-        String fullName = familyName + " " + name;
-//        checkSameName(fullName);
-        
-        MasterModel master = new MasterModel(familyName, name, pcName, inputCheck);
+    public String create() {       
+        MasterModel master = new MasterModel(familyName, name, pcName);
                 
         try {
             db.createMaster(master);
@@ -64,23 +52,7 @@ public class MasterControl implements Serializable{
         }
     
         return "master?faces-redirect=true";
-    }
-    
-    //同姓同名チェック
-    public void checkSameName(String name) {
-        //DBに登録されている全てのレコードを取得 (社員数やPCが増えたら全てのレコード取得は効率が悪い)
-        //新しくWhereを含んだSQLのメソッドを作成するか悩む
-        List<MasterModel> dbRecord = db.getMstAll();
-
-        for (MasterModel nameList : dbRecord) {
-            //登録しようとしている名前がすでにDBに登録されていないかチェック
-            String fullName = nameList.getFamilyName() + " " +nameList.getName();
-            if(nameList.getInputCheck() == 1 && name.equals(fullName)){
-                inputCheck = 0;
-            }
-        }
-    }
-    
+    }    
     
     //社員名・PC名の変更
     public String update() {
@@ -101,7 +73,6 @@ public class MasterControl implements Serializable{
             clear();
         }
         return "master?faces-redirect=true";
-        
     }
 
     //レコードの論理削除(表示させないようにする)
@@ -121,8 +92,6 @@ public class MasterControl implements Serializable{
         newFamilyName = newName = null;
         pcName = newPcName = null;
         updateID = deleteID = null; 
-        
-        
     }
     
     //画面遷移
@@ -135,21 +104,6 @@ public class MasterControl implements Serializable{
     public List<MasterModel> getAll() {
          return db.getMstAll();
     }
-    
-
-    //boolean型からint型に変換
-//    public String isSelect() {
-//        if(checkBox) {
-//            inputCheck = 1;
-//        }else {
-//            inputCheck = 0;
-//        }
-//        return null;   
-//    }
-
-    //
-    //以下のメソッドは各入力項目やボタン等のゲッターセッター
-    //
     
     public String getFamilyName() {
         return familyName;
@@ -174,22 +128,6 @@ public class MasterControl implements Serializable{
     public void setPcName(String pcName) {
         this.pcName = pcName;
     }
-
-    public int getInputCheck() {
-        return inputCheck;
-    }
-
-    public void setInputCheck(int inputCheck) {
-        this.inputCheck = inputCheck;
-    }
-    
-//    public boolean getCheckBox() {
-//        return checkBox;
-//    }
-//
-//    public void setCheckBox(boolean checkBox) {
-//        this.checkBox = checkBox;
-//    }
 
     public String getUpdateID() {
         return updateID;
