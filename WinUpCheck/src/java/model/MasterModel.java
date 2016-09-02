@@ -21,7 +21,6 @@ public class MasterModel implements Serializable{
     private String familyName;
     private String Name;        //社員名
     private String PcName;      //PC名
-    private int InputCheck;     //入力者一覧用フラグ
     
     //以下のプロパティはちょっとした案
     private Date startDate;     //登録日
@@ -32,11 +31,10 @@ public class MasterModel implements Serializable{
         
     }
 
-    public MasterModel(String familyName, String name, String pcName, int inputCheck) {
+    public MasterModel(String familyName, String name, String pcName) {
         this.familyName = familyName;
         this.Name = name;
         this.PcName = pcName;
-        this.InputCheck = inputCheck;
         this.startDate = new Date();
         this.updateDate = new Date();
         this.deleteFlag = 0;
@@ -76,14 +74,6 @@ public class MasterModel implements Serializable{
 
     public void setPcName(String PcName) {
         this.PcName = PcName;
-    }
-
-    public int getInputCheck() {
-        return InputCheck;
-    }
-
-    public void setInputCheck(int InputCheck) {
-        this.InputCheck = InputCheck;
     }
 
     @Temporal(TemporalType.DATE)
